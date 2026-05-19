@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Mental Health Worksheets Thumbnail</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,400&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{width:2000px;height:2000px;overflow:hidden;}
+.canvas{
+  width:2000px;height:2000px;position:relative;
+  background:linear-gradient(160deg,#f0f4f8 0%,#e8f0ec 50%,#f4f0f8 100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:44px;overflow:hidden;
+}
+.orb1{position:absolute;width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(134,190,160,.2),transparent 70%);top:-200px;left:-200px;}
+.orb2{position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(160,140,200,.18),transparent 70%);bottom:-150px;right:-150px;}
+
+.badge-best{position:absolute;top:64px;left:64px;background:#3d6b55;color:#fff;font-family:'DM Sans',sans-serif;font-weight:700;font-size:30px;padding:18px 34px;border-radius:8px;text-transform:uppercase;letter-spacing:2px;box-shadow:0 6px 20px rgba(61,107,85,.35);z-index:10;}
+.badge-sale{position:absolute;top:64px;right:64px;background:linear-gradient(135deg,#7c5cbf,#9b6cd4);color:#fff;font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:600;padding:16px 32px;border-radius:8px;box-shadow:0 6px 24px rgba(124,92,191,.4);z-index:10;}
+
+.eyebrow{font-family:'DM Sans',sans-serif;font-weight:700;font-size:24px;color:#3d6b55;text-transform:uppercase;letter-spacing:8px;margin-top:80px;}
+.hero-num{font-family:'Cormorant Garamond',serif;font-size:310px;font-weight:600;color:#2d3d35;line-height:.85;}
+.hero-sub{font-family:'DM Sans',sans-serif;font-size:62px;font-weight:700;color:#4a6058;text-transform:uppercase;letter-spacing:8px;}
+.hero-type{font-family:'DM Sans',sans-serif;font-size:26px;color:#7a9080;letter-spacing:4px;text-transform:uppercase;margin-top:-4px;}
+
+/* Worksheet preview grid */
+.ws-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;width:820px;}
+.ws-card{background:#fff;border-radius:14px;padding:22px;box-shadow:0 4px 20px rgba(0,0,0,.06);border:1px solid rgba(0,0,0,.05);}
+.ws-title{font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:600;color:#2d3d35;margin-bottom:12px;}
+.ws-line{height:7px;border-radius:4px;margin-bottom:8px;}
+.ws-line:last-child{margin-bottom:0;}
+.ws-box{height:36px;border-radius:6px;margin-bottom:8px;}
+.ws-check{display:flex;gap:8px;align-items:center;margin-bottom:8px;}
+.ws-check-box{width:16px;height:16px;border-radius:4px;border:2px solid currentColor;flex-shrink:0;}
+.ws-check-line{flex:1;height:6px;border-radius:3px;}
+
+/* color accents per card */
+.wc1{--c:#86be9f;--cb:#d4ede2;}
+.wc2{--c:#9b7cc4;--cb:#e8dff5;}
+.wc3{--c:#7ba8c4;--cb:#d8eaf5;}
+.wc4{--c:#c4877b;--cb:#f5ddd8;}
+.wc5{--c:#b0a060;--cb:#f0ecd5;}
+.wc6{--c:#80a0b8;--cb:#d5e8f2;}
+
+.ws-line{background:var(--cb);}
+.ws-box{background:var(--cb);}
+.ws-check-box{border-color:var(--c);}
+.ws-check-line{background:var(--cb);}
+.ws-title{color:#2d3d35;}
+.ws-dot{width:10px;height:10px;border-radius:50%;background:var(--c);display:inline-block;margin-right:4px;}
+
+.pill-row{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;}
+.pill{padding:14px 32px;border-radius:50px;font-family:'DM Sans',sans-serif;font-size:20px;font-weight:700;border:2px solid;}
+.pill1{background:#e8f4ee;border-color:#86be9f;color:#3d6b55;}
+.pill2{background:#ede8f5;border-color:#9b7cc4;color:#5a3d8a;}
+.pill3{background:#e8f0f8;border-color:#7ba8c4;color:#2d5878;}
+.pill4{background:#f5e8e5;border-color:#c4877b;color:#7a3830;}
+
+.fmts{display:flex;gap:14px;}
+.fmt{padding:12px 28px;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:20px;font-weight:700;text-transform:uppercase;letter-spacing:1px;}
+.fa{background:#fff;border:1px solid #ddd;color:#6b8070;}
+.fb{background:#3d6b55;color:#fff;box-shadow:0 4px 16px rgba(61,107,85,.3);}
+</style>
+</head>
+<body>
+<div class="canvas">
+  <div class="orb1"></div><div class="orb2"></div>
+  <div class="badge-best">⭐ Bestseller</div>
+  <div class="badge-sale">75% OFF</div>
+  <div class="eyebrow">Therapy & Mental Health Worksheets</div>
+  <div class="hero-num">100+</div>
+  <div class="hero-sub">Worksheets</div>
+  <div class="hero-type">CBT · DBT · Mindfulness · Anxiety · Depression</div>
+  <div class="ws-grid">
+    <div class="ws-card wc1">
+      <div class="ws-title"><span class="ws-dot"></span>Thought Journal</div>
+      <div class="ws-box"></div>
+      <div class="ws-line" style="width:90%"></div>
+      <div class="ws-line" style="width:70%"></div>
+      <div class="ws-line" style="width:80%"></div>
+    </div>
+    <div class="ws-card wc2">
+      <div class="ws-title"><span class="ws-dot"></span>Emotion Check-In</div>
+      <div class="ws-check"><div class="ws-check-box"></div><div class="ws-check-line"></div></div>
+      <div class="ws-check"><div class="ws-check-box"></div><div class="ws-check-line" style="width:60%"></div></div>
+      <div class="ws-check"><div class="ws-check-box"></div><div class="ws-check-line" style="width:80%"></div></div>
+      <div class="ws-check"><div class="ws-check-box"></div><div class="ws-check-line" style="width:50%"></div></div>
+    </div>
+    <div class="ws-card wc3">
+      <div class="ws-title"><span class="ws-dot"></span>Anxiety Tracker</div>
+      <div class="ws-box"></div>
+      <div class="ws-line"></div>
+      <div class="ws-line" style="width:75%"></div>
+      <div class="ws-box" style="height:24px"></div>
+    </div>
+    <div class="ws-card wc4">
+      <div class="ws-title"><span class="ws-dot"></span>Coping Skills</div>
+      <div class="ws-check"><div class="ws-check-box"></div><div class="ws-check-line"></div></div>
+      <div class="ws-check"><div class="ws-check-box"></div><div class="ws-check-line" style="width:70%"></div></div>
+      <div class="ws-check"><div class="ws-check-box"></div><div class="ws-check-line" style="width:85%"></div></div>
+      <div class="ws-check"><div class="ws-check-box"></div><div class="ws-check-line" style="width:55%"></div></div>
+    </div>
+    <div class="ws-card wc5">
+      <div class="ws-title"><span class="ws-dot"></span>Gratitude Log</div>
+      <div class="ws-box"></div>
+      <div class="ws-line" style="width:85%"></div>
+      <div class="ws-line"></div>
+      <div class="ws-line" style="width:65%"></div>
+    </div>
+    <div class="ws-card wc6">
+      <div class="ws-title"><span class="ws-dot"></span>Mood Chart</div>
+      <div class="ws-box"></div>
+      <div class="ws-check"><div class="ws-check-box"></div><div class="ws-check-line"></div></div>
+      <div class="ws-check"><div class="ws-check-box"></div><div class="ws-check-line" style="width:60%"></div></div>
+      <div class="ws-line"></div>
+    </div>
+  </div>
+  <div class="pill-row">
+    <div class="pill pill1">CBT-Based</div>
+    <div class="pill pill2">DBT Skills</div>
+    <div class="pill pill3">Printable PDF</div>
+    <div class="pill pill4">Therapist Approved</div>
+  </div>
+  <div class="fmts">
+    <div class="fmt fb">⚡ Instant Download</div>
+    <div class="fmt fa">PDF</div>
+    <div class="fmt fa">Printable</div>
+    <div class="fmt fa">Letter + A4</div>
+  </div>
+</div>
+</body>
+</html>

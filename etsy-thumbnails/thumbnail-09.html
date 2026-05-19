@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>May Birth Flower Mug Thumbnail</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,400&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{width:2000px;height:2000px;overflow:hidden;}
+.canvas{
+  width:2000px;height:2000px;position:relative;
+  background:linear-gradient(150deg,#fdf6ee 0%,#f5eef8 50%,#eef5f0 100%);
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+}
+.orb1{position:absolute;width:900px;height:900px;border-radius:50%;background:radial-gradient(circle,rgba(240,200,160,.3),transparent 65%);top:-200px;right:-200px;}
+.orb2{position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(200,160,230,.2),transparent 65%);bottom:-150px;left:-150px;}
+
+/* Layout: left text, right mug */
+.left{display:flex;flex-direction:column;justify-content:center;gap:28px;flex:1;padding:100px 60px 100px 120px;}
+.right{flex:1;display:flex;align-items:center;justify-content:center;padding:80px;}
+
+.eyebrow{font-family:'DM Sans',sans-serif;font-weight:700;font-size:22px;color:#8b6340;text-transform:uppercase;letter-spacing:6px;}
+.title{font-family:'Cormorant Garamond',serif;font-size:120px;font-weight:600;line-height:.9;color:#2d2020;}
+.title em{font-style:italic;color:#a07840;}
+.sub{font-family:'DM Sans',sans-serif;font-size:30px;color:#6b5040;line-height:1.5;}
+.desc{font-family:'DM Sans',sans-serif;font-size:24px;color:rgba(107,80,64,.6);line-height:1.6;}
+.pills{display:flex;gap:12px;flex-wrap:wrap;}
+.pill{padding:10px 22px;border-radius:20px;font-size:18px;font-weight:700;border:2px solid;}
+.pill1{background:#fdf0e0;border-color:#d4a060;color:#8b6340;}
+.pill2{background:#f5eef8;border-color:#b090d0;color:#6040a0;}
+.pill3{background:#eef5f0;border-color:#80b890;color:#386048;}
+
+/* Mug SVG */
+.mug-wrap{position:relative;width:720px;height:720px;}
+.mug-shadow{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);width:500px;height:40px;background:rgba(0,0,0,.12);border-radius:50%;filter:blur(20px);}
+</style>
+</head>
+<body>
+<div class="canvas">
+  <div class="orb1"></div><div class="orb2"></div>
+  <div class="left">
+    <div class="eyebrow">May Birth Flower</div>
+    <div class="title">Lily of<br>the <em>Valley</em></div>
+    <div class="sub">Elegant floral mug for<br>May birthdays</div>
+    <div class="desc">11oz · 15oz · Dishwasher Safe<br>Ships via Printify/Printful</div>
+    <div class="pills">
+      <div class="pill pill1">May Birthday Gift</div>
+      <div class="pill pill2">Birth Month Flower</div>
+      <div class="pill pill3">Floral Botanical</div>
+    </div>
+  </div>
+  <div class="right">
+    <div class="mug-wrap">
+      <div class="mug-shadow"></div>
+      <svg viewBox="0 0 300 280" width="720" height="680" fill="none">
+        <!-- Mug body -->
+        <path d="M40,60 Q40,40 60,38 L240,38 Q260,40 260,60 L260,220 Q258,248 230,252 L70,252 Q42,248 40,220 Z" fill="#fff" stroke="#e0d0c0" stroke-width="2"/>
+        <!-- Mug handle -->
+        <path d="M260,95 Q295,95 295,130 Q295,165 260,165" stroke="#e0d0c0" stroke-width="12" fill="none" stroke-linecap="round"/>
+        <!-- Mug rim top -->
+        <ellipse cx="150" cy="40" rx="110" ry="14" fill="#f8f0e8" stroke="#e0d0c0" stroke-width="1.5"/>
+        <!-- Mug bottom -->
+        <ellipse cx="150" cy="252" rx="90" ry="10" fill="#f0e8e0" stroke="#e0d0c0" stroke-width="1"/>
+
+        <!-- Lily of the Valley design on mug -->
+        <!-- Main stem -->
+        <path d="M120,210 Q118,160 115,120 Q118,80 125,55" stroke="#80a868" stroke-width="3" fill="none"/>
+        <!-- Leaves -->
+        <path d="M115,140 Q90,120 80,95 Q100,118 115,138" fill="#a0c880" stroke="#80a868" stroke-width="1.5"/>
+        <path d="M120,120 Q148,100 158,75 Q140,98 120,118" fill="#a0c880" stroke="#80a868" stroke-width="1.5"/>
+        <!-- Bell flowers -->
+        <path d="M115,105 Q108,118 108,128 Q115,135 122,128 Q122,118 115,105Z" fill="#f5f0ff" stroke="#c0a8e0" stroke-width="1.5"/>
+        <path d="M115,118 Q109,128 109,136 Q115,142 121,136 Q121,128 115,118Z" fill="#f5f0ff" stroke="#c0a8e0" stroke-width="1.5"/>
+        <path d="M115,130 Q109,140 109,148 Q115,154 121,148 Q121,140 115,130Z" fill="#f5f0ff" stroke="#c0a8e0" stroke-width="1.5"/>
+        <path d="M115,142 Q109,152 109,160 Q115,166 121,160 Q121,152 115,142Z" fill="#f5f0ff" stroke="#c0a8e0" stroke-width="1.5"/>
+        <!-- Small dots on flowers -->
+        <circle cx="115" cy="107" r="2" fill="#c0a8e0"/>
+        <circle cx="115" cy="120" r="2" fill="#c0a8e0"/>
+        <circle cx="115" cy="132" r="2" fill="#c0a8e0"/>
+        <circle cx="115" cy="144" r="2" fill="#c0a8e0"/>
+
+        <!-- Second cluster -->
+        <path d="M150,180 Q148,155 148,130 Q150,105 155,85" stroke="#80a868" stroke-width="2.5" fill="none"/>
+        <path d="M148,145 Q168,125 172,100 Q158,124 148,143" fill="#a0c880" stroke="#80a868" stroke-width="1.5"/>
+        <path d="M150,115 Q132,95 128,70 Q140,94 150,113" fill="#a0c880" stroke="#80a868" stroke-width="1.5"/>
+        <path d="M150,100 Q144,112 144,120 Q150,126 156,120 Q156,112 150,100Z" fill="#f5f0ff" stroke="#c0a8e0" stroke-width="1.5"/>
+        <path d="M150,112 Q144,122 144,130 Q150,136 156,130 Q156,122 150,112Z" fill="#f5f0ff" stroke="#c0a8e0" stroke-width="1.5"/>
+        <path d="M150,124 Q144,134 144,142 Q150,148 156,142 Q156,134 150,124Z" fill="#f5f0ff" stroke="#c0a8e0" stroke-width="1.5"/>
+        <circle cx="150" cy="102" r="2" fill="#c0a8e0"/>
+        <circle cx="150" cy="114" r="2" fill="#c0a8e0"/>
+        <circle cx="150" cy="126" r="2" fill="#c0a8e0"/>
+
+        <!-- Script text on mug -->
+        <text x="145" y="230" font-family="Georgia,serif" font-size="14" fill="#8b6340" text-anchor="middle" font-style="italic">May</text>
+      </svg>
+    </div>
+  </div>
+</div>
+</body>
+</html>

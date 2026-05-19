@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>POD Mockup Bundle Thumbnail</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{width:2000px;height:2000px;overflow:hidden;}
+.canvas{
+  width:2000px;height:2000px;position:relative;
+  background:#1a1a1a;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:44px;overflow:hidden;
+}
+.noise{position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");opacity:.5;}
+.stripe{position:absolute;width:200%;height:3px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.05),transparent);top:33%;transform:rotate(-2deg);}
+.stripe2{position:absolute;width:200%;height:2px;background:linear-gradient(90deg,transparent,rgba(255,255,255,.04),transparent);top:66%;transform:rotate(-2deg);}
+
+
+.eyebrow{font-family:'DM Sans',sans-serif;font-weight:700;font-size:24px;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:8px;}
+.hero-num{font-family:'Bebas Neue',sans-serif;font-size:380px;color:#fff;line-height:.85;letter-spacing:-4px;}
+.hero-sub{font-family:'DM Sans',sans-serif;font-size:60px;font-weight:700;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:8px;}
+
+/* Mockup grid */
+.mockup-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;width:900px;}
+.mock-item{aspect-ratio:1;border-radius:10px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;}
+.mock-icon{font-size:52px;}
+.mock-lbl{font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;color:rgba(255,255,255,.45);text-transform:uppercase;letter-spacing:.5px;}
+/* mock colors */
+.mi1{background:rgba(255,200,100,.06);border-color:rgba(255,200,100,.15);}
+.mi2{background:rgba(100,200,255,.06);border-color:rgba(100,200,255,.15);}
+.mi3{background:rgba(200,100,255,.06);border-color:rgba(200,100,255,.15);}
+.mi4{background:rgba(100,255,150,.06);border-color:rgba(100,255,150,.15);}
+.mi5{background:rgba(255,100,100,.06);border-color:rgba(255,100,100,.15);}
+.mi6{background:rgba(255,200,100,.06);border-color:rgba(255,200,100,.15);}
+.mi7{background:rgba(200,200,255,.06);border-color:rgba(200,200,255,.15);}
+.mi8{background:rgba(100,255,200,.06);border-color:rgba(100,255,200,.15);}
+.mi9{background:rgba(255,150,100,.06);border-color:rgba(255,150,100,.15);}
+.mi10{background:rgba(150,100,255,.06);border-color:rgba(150,100,255,.15);}
+
+.stat-bar{display:flex;gap:0;border:1px solid rgba(255,255,255,.1);border-radius:10px;overflow:hidden;width:900px;}
+.stat-item{flex:1;text-align:center;padding:18px 12px;background:rgba(255,255,255,.03);}
+.stat-item+.stat-item{border-left:1px solid rgba(255,255,255,.08);}
+.stat-num{font-family:'Bebas Neue',sans-serif;font-size:32px;color:#fff;letter-spacing:1px;}
+.stat-lbl{font-family:'DM Sans',sans-serif;font-size:12px;font-weight:700;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:1px;margin-top:2px;}
+
+.fmts{display:flex;gap:14px;}
+.fmt{padding:12px 28px;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:20px;font-weight:700;text-transform:uppercase;letter-spacing:1px;}
+.fa{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.15);color:rgba(255,255,255,.5);}
+.fb{background:#fff;color:#1a1a1a;}
+</style>
+</head>
+<body>
+<div class="canvas">
+  <div class="noise"></div><div class="stripe"></div><div class="stripe2"></div>
+  <div class="eyebrow">Print-on-Demand Mockup Bundle</div>
+  <div class="hero-num">500+</div>
+  <div class="hero-sub">Mockup Scenes</div>
+  <div class="mockup-grid">
+    <div class="mock-item mi1"><div class="mock-icon">👕</div><div class="mock-lbl">T-Shirts</div></div>
+    <div class="mock-item mi2"><div class="mock-icon">☕</div><div class="mock-lbl">Mugs</div></div>
+    <div class="mock-item mi3"><div class="mock-icon">🎒</div><div class="mock-lbl">Totes</div></div>
+    <div class="mock-item mi4"><div class="mock-icon">🖼️</div><div class="mock-lbl">Posters</div></div>
+    <div class="mock-item mi5"><div class="mock-icon">📱</div><div class="mock-lbl">Phone Cases</div></div>
+    <div class="mock-item mi6"><div class="mock-icon">🧢</div><div class="mock-lbl">Hats</div></div>
+    <div class="mock-item mi7"><div class="mock-icon">🛋️</div><div class="mock-lbl">Pillows</div></div>
+    <div class="mock-item mi8"><div class="mock-icon">📓</div><div class="mock-lbl">Notebooks</div></div>
+    <div class="mock-item mi9"><div class="mock-icon">👟</div><div class="mock-lbl">Shoes</div></div>
+    <div class="mock-item mi10"><div class="mock-icon">🧺</div><div class="mock-lbl">Hoodies</div></div>
+  </div>
+  <div class="stat-bar">
+    <div class="stat-item"><div class="stat-num">PNG + PSD</div><div class="stat-lbl">File Formats</div></div>
+    <div class="stat-item"><div class="stat-num">Transparent BG</div><div class="stat-lbl">Smart Objects</div></div>
+    <div class="stat-item"><div class="stat-num">Drag & Drop</div><div class="stat-lbl">Easy to Edit</div></div>
+    <div class="stat-item"><div class="stat-num">Commercial</div><div class="stat-lbl">Use Included</div></div>
+  </div>
+  <div class="fmts">
+    <div class="fmt fb">⚡ Instant Download</div>
+    <div class="fmt fa">PNG</div>
+    <div class="fmt fa">Transparent</div>
+    <div class="fmt fa">Commercial Use</div>
+  </div>
+</div>
+</body>
+</html>

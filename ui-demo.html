@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UI Design System — Demo</title>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #fafafa;
+  --bg2: #f4f4f5;
+  --surface: #ffffff;
+  --border: #e4e4e7;
+  --text: #111111;
+  --text2: #52525b;
+  --text3: #a1a1aa;
+  --accent: #6366f1;
+  --accent2: #818cf8;
+  --accent-bg: #eef2ff;
+  --green: #22c55e;
+  --green-bg: #dcfce7;
+  --red: #ef4444;
+  --red-bg: #fee2e2;
+  --yellow: #f59e0b;
+  --yellow-bg: #fef3c7;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow: 0 4px 24px rgba(0,0,0,0.06), 0 2px 8px rgba(0,0,0,0.04);
+  --shadow-lg: 0 12px 48px rgba(0,0,0,0.10), 0 4px 16px rgba(0,0,0,0.06);
+  --radius: 14px;
+  --radius-sm: 8px;
+  --radius-full: 9999px;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'Plus Jakarta Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+/* ── NAV ── */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(255,255,255,0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  padding: 0 32px; height: 60px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo { font-size: 16px; font-weight: 700; letter-spacing: -0.3px; }
+.nav-logo span { color: var(--accent); }
+.nav-links { display: flex; align-items: center; gap: 4px; }
+.nav-link {
+  padding: 6px 14px; border-radius: var(--radius-sm); font-size: 13px;
+  font-weight: 500; color: var(--text2); text-decoration: none;
+  transition: all 0.15s; cursor: pointer; border: none; background: none;
+}
+.nav-link:hover { color: var(--text); background: var(--bg2); }
+.nav-link.active { color: var(--accent); background: var(--accent-bg); }
+.nav-cta {
+  padding: 7px 18px; border-radius: var(--radius-sm); font-size: 13px;
+  font-weight: 600; background: var(--text); color: #fff; border: none;
+  cursor: pointer; transition: all 0.18s;
+}
+.nav-cta:hover { opacity: 0.85; transform: translateY(-1px); }
+
+/* ── PAGE ── */
+.page { max-width: 1100px; margin: 0 auto; padding: 40px 24px; }
+
+/* ── SECTION HEADERS ── */
+.section-label {
+  font-size: 11px; font-weight: 700; letter-spacing: 1.2px;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 8px;
+}
+.section-title { font-size: 30px; font-weight: 800; letter-spacing: -0.5px; color: var(--text); line-height: 1.2; }
+.section-sub { font-size: 15px; color: var(--text2); margin-top: 6px; line-height: 1.6; }
+.section-head { margin-bottom: 28px; }
+
+/* ── BENTO GRID ── */
+.bento {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 14px;
+  margin-bottom: 48px;
+}
+.bento-card {
+  background: var(--surface); border-radius: var(--radius);
+  border: 1px solid var(--border); box-shadow: var(--shadow);
+  padding: 24px; overflow: hidden; position: relative;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.bento-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-2px); }
+
+/* Span helpers */
+.col-4 { grid-column: span 4; }
+.col-5 { grid-column: span 5; }
+.col-6 { grid-column: span 6; }
+.col-7 { grid-column: span 7; }
+.col-8 { grid-column: span 8; }
+.col-12 { grid-column: span 12; }
+
+/* ── STAT CARDS ── */
+.stat-eyebrow { font-size: 11px; font-weight: 600; letter-spacing: .8px; text-transform: uppercase; color: var(--text3); margin-bottom: 10px; }
+.stat-value { font-size: 36px; font-weight: 800; letter-spacing: -1px; line-height: 1; }
+.stat-change { display: inline-flex; align-items: center; gap: 4px; margin-top: 8px; font-size: 12px; font-weight: 600; padding: 3px 8px; border-radius: var(--radius-full); }
+.stat-change.up { background: var(--green-bg); color: #15803d; }
+.stat-change.down { background: var(--red-bg); color: #b91c1c; }
+.stat-sub { font-size: 12px; color: var(--text3); margin-top: 4px; }
+
+/* CHART BARS */
+.mini-chart { display: flex; align-items: flex-end; gap: 4px; height: 48px; margin-top: 16px; }
+.bar {
+  flex: 1; border-radius: 4px 4px 0 0;
+  background: var(--accent-bg);
+  transition: background 0.15s;
+  cursor: pointer;
+}
+.bar:hover { background: var(--accent2); }
+.bar.active { background: var(--accent); }
+
+/* ACTIVITY FEED */
+.activity-item { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0; border-bottom: 1px solid var(--border); }
+.activity-item:last-child { border-bottom: none; }
+.activity-avatar {
+  width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; font-weight: 700; color: #fff;
+}
+.activity-body { flex: 1; }
+.activity-name { font-size: 13px; font-weight: 600; color: var(--text); }
+.activity-desc { font-size: 13px; color: var(--text2); margin-top: 1px; }
+.activity-time { font-size: 11px; color: var(--text3); margin-top: 3px; }
+
+/* PROGRESS BARS */
+.prog-row { margin-bottom: 14px; }
+.prog-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.prog-label { font-size: 13px; font-weight: 500; color: var(--text); }
+.prog-val { font-size: 12px; font-weight: 700; color: var(--text2); }
+.prog-track { height: 6px; background: var(--bg2); border-radius: var(--radius-full); overflow: hidden; }
+.prog-fill { height: 100%; border-radius: var(--radius-full); transition: width 0.6s ease; }
+
+/* BADGES */
+.badge {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 3px 10px; border-radius: var(--radius-full);
+  font-size: 11px; font-weight: 700; letter-spacing: .3px;
+}
+.badge-purple { background: var(--accent-bg); color: var(--accent); }
+.badge-green { background: var(--green-bg); color: #15803d; }
+.badge-yellow { background: var(--yellow-bg); color: #92400e; }
+.badge-gray { background: var(--bg2); color: var(--text2); }
+
+/* FEATURE CARD */
+.feature-icon {
+  width: 44px; height: 44px; border-radius: 12px; margin-bottom: 16px;
+  display: flex; align-items: center; justify-content: center; font-size: 22px;
+}
+.feature-title { font-size: 16px; font-weight: 700; letter-spacing: -0.2px; margin-bottom: 6px; }
+.feature-desc { font-size: 14px; color: var(--text2); line-height: 1.6; }
+
+/* GLASS CARD */
+.glass {
+  background: linear-gradient(135deg, rgba(99,102,241,0.12) 0%, rgba(168,85,247,0.08) 100%);
+  border: 1px solid rgba(99,102,241,0.2);
+  position: relative; overflow: hidden;
+}
+.glass::before {
+  content: '';
+  position: absolute; top: -60px; right: -60px;
+  width: 180px; height: 180px;
+  background: radial-gradient(circle, rgba(99,102,241,0.15) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* GRADIENT CARD */
+.gradient-dark {
+  background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4c1d95 100%);
+  color: #fff; border: none;
+}
+.gradient-dark .stat-eyebrow { color: rgba(255,255,255,0.5); }
+.gradient-dark .stat-sub { color: rgba(255,255,255,0.4); }
+
+/* BUTTON VARIANTS */
+.btn-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px; }
+.btn {
+  padding: 9px 20px; border-radius: var(--radius-sm);
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 13px; font-weight: 600; cursor: pointer;
+  border: none; transition: all 0.18s; white-space: nowrap;
+}
+.btn-primary { background: var(--accent); color: #fff; }
+.btn-primary:hover { background: #4f46e5; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(99,102,241,0.4); }
+.btn-dark { background: var(--text); color: #fff; }
+.btn-dark:hover { opacity: 0.85; transform: translateY(-1px); }
+.btn-outline { background: transparent; border: 1.5px solid var(--border); color: var(--text2); }
+.btn-outline:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-bg); }
+.btn-ghost { background: transparent; color: var(--text2); }
+.btn-ghost:hover { background: var(--bg2); color: var(--text); }
+.btn-destructive { background: var(--red-bg); color: var(--red); border: 1px solid #fecaca; }
+.btn-destructive:hover { background: var(--red); color: #fff; }
+
+/* INPUT VARIANTS */
+.input-row { display: flex; flex-direction: column; gap: 10px; margin-top: 16px; }
+.input-group { display: flex; flex-direction: column; gap: 6px; }
+.input-label { font-size: 12px; font-weight: 600; color: var(--text2); }
+.input {
+  padding: 10px 14px; border: 1.5px solid var(--border); border-radius: var(--radius-sm);
+  font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; color: var(--text);
+  background: var(--surface); outline: none; transition: border-color 0.15s, box-shadow 0.15s;
+}
+.input:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(99,102,241,0.12); }
+.input-with-icon { position: relative; }
+.input-with-icon .input { padding-left: 38px; }
+.input-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text3); font-size: 15px; }
+
+/* TABLE */
+.data-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.data-table th {
+  padding: 10px 16px; text-align: left; font-size: 11px; font-weight: 700;
+  letter-spacing: .8px; text-transform: uppercase; color: var(--text3);
+  background: var(--bg2); border-bottom: 1px solid var(--border);
+}
+.data-table td { padding: 13px 16px; border-bottom: 1px solid var(--border); color: var(--text2); vertical-align: middle; }
+.data-table tr:last-child td { border-bottom: none; }
+.data-table tr:hover td { background: var(--bg); }
+.data-table .name-cell { font-weight: 600; color: var(--text); }
+
+/* TOGGLE */
+.toggle-wrap { display: flex; align-items: center; gap: 10px; cursor: pointer; }
+.toggle {
+  width: 40px; height: 22px; border-radius: var(--radius-full);
+  background: var(--border); position: relative; transition: background 0.2s;
+  flex-shrink: 0; cursor: pointer; border: none; outline: none;
+}
+.toggle.on { background: var(--accent); }
+.toggle::after {
+  content: ''; position: absolute;
+  width: 16px; height: 16px; border-radius: 50%; background: #fff;
+  top: 3px; left: 3px; transition: transform 0.2s;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.15);
+}
+.toggle.on::after { transform: translateX(18px); }
+.toggle-label { font-size: 14px; font-weight: 500; color: var(--text); }
+.toggle-sub { font-size: 12px; color: var(--text3); }
+
+/* SEPARATOR */
+.sep { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .col-4, .col-5, .col-6, .col-7, .col-8 { grid-column: span 12; }
+  .bento { grid-template-columns: 1fr; }
+  nav { padding: 0 16px; }
+  .nav-links { display: none; }
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">claude<span>UI</span></div>
+  <div class="nav-links">
+    <button class="nav-link active">Dashboard</button>
+    <button class="nav-link">Analytics</button>
+    <button class="nav-link">Products</button>
+    <button class="nav-link">Settings</button>
+  </div>
+  <button class="nav-cta">Upgrade Plan</button>
+</nav>
+
+<div class="page">
+
+  <!-- HERO BENTO -->
+  <div class="section-head">
+    <div class="section-label">Design System Demo</div>
+    <div class="section-title">Modern SaaS UI Patterns</div>
+    <div class="section-sub">Bento grids · Soft shadows · Premium components · Full responsiveness</div>
+  </div>
+
+  <div class="bento">
+
+    <!-- Stat 1 — gradient dark -->
+    <div class="bento-card gradient-dark col-4">
+      <div class="stat-eyebrow">Monthly Revenue</div>
+      <div class="stat-value">$24,810</div>
+      <div style="margin-top:8px;display:flex;align-items:center;gap:8px;">
+        <span class="stat-change up">↑ 18.4%</span>
+        <span style="font-size:12px;color:rgba(255,255,255,0.4)">vs last month</span>
+      </div>
+      <div class="mini-chart">
+        <div class="bar active" style="height:40%;background:rgba(255,255,255,.15)"></div>
+        <div class="bar active" style="height:55%;background:rgba(255,255,255,.2)"></div>
+        <div class="bar active" style="height:45%;background:rgba(255,255,255,.15)"></div>
+        <div class="bar active" style="height:70%;background:rgba(255,255,255,.25)"></div>
+        <div class="bar active" style="height:60%;background:rgba(255,255,255,.2)"></div>
+        <div class="bar active" style="height:85%;background:rgba(255,255,255,.3)"></div>
+        <div class="bar active" style="height:100%;background:rgba(255,255,255,.9)"></div>
+      </div>
+    </div>
+
+    <!-- Stat 2 -->
+    <div class="bento-card col-4">
+      <div class="stat-eyebrow">Active Users</div>
+      <div class="stat-value" style="color:var(--accent)">3,291</div>
+      <span class="stat-change up">↑ 6.2%</span>
+      <div class="stat-sub" style="margin-top:10px;">214 new this week</div>
+      <div class="mini-chart">
+        <div class="bar" style="height:50%"></div>
+        <div class="bar" style="height:65%"></div>
+        <div class="bar" style="height:55%"></div>
+        <div class="bar" style="height:80%"></div>
+        <div class="bar" style="height:70%"></div>
+        <div class="bar active" style="height:90%"></div>
+        <div class="bar active" style="height:100%"></div>
+      </div>
+    </div>
+
+    <!-- Stat 3 -->
+    <div class="bento-card col-4">
+      <div class="stat-eyebrow">Conversion Rate</div>
+      <div class="stat-value">4.8%</div>
+      <span class="stat-change down">↓ 0.3%</span>
+      <div class="stat-sub" style="margin-top:10px;">1,240 checkouts this month</div>
+      <div class="mini-chart">
+        <div class="bar" style="height:90%"></div>
+        <div class="bar active" style="height:80%"></div>
+        <div class="bar" style="height:85%"></div>
+        <div class="bar active" style="height:70%"></div>
+        <div class="bar" style="height:65%"></div>
+        <div class="bar" style="height:60%"></div>
+        <div class="bar active" style="height:50%"></div>
+      </div>
+    </div>
+
+    <!-- Activity Feed -->
+    <div class="bento-card col-5">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+        <div style="font-size:15px;font-weight:700;">Recent Activity</div>
+        <span class="badge badge-purple">Live</span>
+      </div>
+      <div class="activity-item">
+        <div class="activity-avatar" style="background:linear-gradient(135deg,#6366f1,#818cf8)">O</div>
+        <div class="activity-body">
+          <div class="activity-name">New sale — Digital Planner</div>
+          <div class="activity-desc">$9.00 · Etsy Digital Download</div>
+          <div class="activity-time">2 minutes ago</div>
+        </div>
+        <span class="badge badge-green">+$9</span>
+      </div>
+      <div class="activity-item">
+        <div class="activity-avatar" style="background:linear-gradient(135deg,#f59e0b,#fbbf24)">M</div>
+        <div class="activity-body">
+          <div class="activity-name">New client inquiry</div>
+          <div class="activity-desc">Mexican Restaurant — social media</div>
+          <div class="activity-time">1 hour ago</div>
+        </div>
+        <span class="badge badge-yellow">Lead</span>
+      </div>
+      <div class="activity-item">
+        <div class="activity-avatar" style="background:linear-gradient(135deg,#22c55e,#4ade80)">W</div>
+        <div class="activity-body">
+          <div class="activity-name">Wedding Planner listed</div>
+          <div class="activity-desc">Etsy listing published successfully</div>
+          <div class="activity-time">3 hours ago</div>
+        </div>
+        <span class="badge badge-gray">Done</span>
+      </div>
+    </div>
+
+    <!-- Progress card -->
+    <div class="bento-card col-7">
+      <div style="font-size:15px;font-weight:700;margin-bottom:20px;">Summer Goal Progress</div>
+      <div class="prog-row">
+        <div class="prog-header"><span class="prog-label">Etsy Revenue</span><span class="prog-val">$810 / $5,000</span></div>
+        <div class="prog-track"><div class="prog-fill" style="width:16%;background:var(--accent)"></div></div>
+      </div>
+      <div class="prog-row">
+        <div class="prog-header"><span class="prog-label">Ad Agency Clients</span><span class="prog-val">3 / 10</span></div>
+        <div class="prog-track"><div class="prog-fill" style="width:30%;background:#22c55e"></div></div>
+      </div>
+      <div class="prog-row">
+        <div class="prog-header"><span class="prog-label">Products Listed</span><span class="prog-val">2 / 12</span></div>
+        <div class="prog-track"><div class="prog-fill" style="width:17%;background:#f59e0b"></div></div>
+      </div>
+      <div class="prog-row" style="margin-bottom:0">
+        <div class="prog-header"><span class="prog-label">Total Goal: $15k by Sept</span><span class="prog-val">$1,240 / $15,000</span></div>
+        <div class="prog-track"><div class="prog-fill" style="width:8%;background:linear-gradient(90deg,var(--accent),#a78bfa)"></div></div>
+      </div>
+    </div>
+
+    <!-- Glassmorphism card -->
+    <div class="bento-card glass col-6">
+      <div class="section-label" style="margin-bottom:12px;">Stack Status</div>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <span style="font-size:14px;font-weight:500;">Ollama (Llama 3.1)</span>
+          <span class="badge badge-yellow">Installing</span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <span style="font-size:14px;font-weight:500;">Playwright MCP</span>
+          <span class="badge badge-green">Connected</span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <span style="font-size:14px;font-weight:500;">21st.dev Magic MCP</span>
+          <span class="badge badge-green">Connected</span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <span style="font-size:14px;font-weight:500;">AnythingLLM + Vault RAG</span>
+          <span class="badge badge-gray">Pending</span>
+        </div>
+        <div style="display:flex;align-items:center;justify-content:space-between;">
+          <span style="font-size:14px;font-weight:500;">Etsy Shop</span>
+          <span class="badge badge-gray">Not started</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Feature cards -->
+    <div class="bento-card col-6">
+      <div class="feature-icon" style="background:var(--accent-bg)">⚡</div>
+      <div class="feature-title">Buttons & Inputs</div>
+      <div class="feature-desc">Every state covered — primary, outline, ghost, destructive. Focus rings, hover lifts, and active states all handled.</div>
+      <div class="btn-row">
+        <button class="btn btn-primary">Primary</button>
+        <button class="btn btn-dark">Dark</button>
+        <button class="btn btn-outline">Outline</button>
+        <button class="btn btn-ghost">Ghost</button>
+        <button class="btn btn-destructive">Delete</button>
+      </div>
+    </div>
+
+    <!-- Inputs -->
+    <div class="bento-card col-6">
+      <div class="feature-icon" style="background:#dcfce7">📝</div>
+      <div class="feature-title">Form Inputs</div>
+      <div class="feature-desc">Clean inputs with focus rings, icon slots, and label hierarchy. No default browser styling.</div>
+      <div class="input-row">
+        <div class="input-group">
+          <label class="input-label">Search</label>
+          <div class="input-with-icon">
+            <span class="input-icon">🔍</span>
+            <input class="input" type="text" placeholder="Search anything…">
+          </div>
+        </div>
+        <div class="input-group">
+          <label class="input-label">Email Address</label>
+          <input class="input" type="email" placeholder="you@example.com">
+        </div>
+      </div>
+    </div>
+
+    <!-- Table -->
+    <div class="bento-card col-12">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;">
+        <div style="font-size:15px;font-weight:700;">Etsy Products</div>
+        <div style="display:flex;gap:8px;">
+          <button class="btn btn-outline" style="padding:6px 14px;font-size:12px;">Filter</button>
+          <button class="btn btn-primary" style="padding:6px 14px;font-size:12px;">+ Add Product</button>
+        </div>
+      </div>
+      <div style="overflow-x:auto;">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Product</th>
+              <th>Category</th>
+              <th>Price</th>
+              <th>Status</th>
+              <th>Revenue</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="name-cell">All-in-One Digital Planner</td>
+              <td>Digital Download</td>
+              <td>$9.00</td>
+              <td><span class="badge badge-green">Live</span></td>
+              <td style="font-weight:700;color:var(--text)">$810</td>
+            </tr>
+            <tr>
+              <td class="name-cell">Wedding Planner — 6 Tabs</td>
+              <td>Digital Download</td>
+              <td>$12.00</td>
+              <td><span class="badge badge-green">Live</span></td>
+              <td style="font-weight:700;color:var(--text)">$430</td>
+            </tr>
+            <tr>
+              <td class="name-cell">Finance / Budget Tracker</td>
+              <td>Digital Download</td>
+              <td>$9.00</td>
+              <td><span class="badge badge-yellow">Building</span></td>
+              <td style="color:var(--text3)">—</td>
+            </tr>
+            <tr>
+              <td class="name-cell">May Birth Flower Mug</td>
+              <td>POD Physical</td>
+              <td>$22.00</td>
+              <td><span class="badge badge-gray">Pending</span></td>
+              <td style="color:var(--text3)">—</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Toggles -->
+    <div class="bento-card col-4">
+      <div style="font-size:15px;font-weight:700;margin-bottom:20px;">Preferences</div>
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <div class="toggle-wrap" onclick="this.querySelector('.toggle').classList.toggle('on')">
+          <button class="toggle on"></button>
+          <div><div class="toggle-label">Email notifications</div><div class="toggle-sub">New sales and messages</div></div>
+        </div>
+        <div class="toggle-wrap" onclick="this.querySelector('.toggle').classList.toggle('on')">
+          <button class="toggle"></button>
+          <div><div class="toggle-label">Auto-publish to Etsy</div><div class="toggle-sub">When products are ready</div></div>
+        </div>
+        <div class="toggle-wrap" onclick="this.querySelector('.toggle').classList.toggle('on')">
+          <button class="toggle on"></button>
+          <div><div class="toggle-label">Vault sync</div><div class="toggle-sub">Save session notes automatically</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Badge showcase -->
+    <div class="bento-card col-4">
+      <div style="font-size:15px;font-weight:700;margin-bottom:16px;">Badge System</div>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;">
+        <span class="badge badge-purple">● Active</span>
+        <span class="badge badge-green">✓ Verified</span>
+        <span class="badge badge-yellow">⚠ Pending</span>
+        <span class="badge badge-gray">Archived</span>
+        <span class="badge" style="background:#fce7f3;color:#be185d;">Featured</span>
+        <span class="badge" style="background:#ffe4e6;color:#be123c;">Critical</span>
+        <span class="badge" style="background:#e0f2fe;color:#0369a1;">Beta</span>
+        <span class="badge" style="background:#f0fdf4;color:#15803d;">Paid</span>
+      </div>
+    </div>
+
+    <!-- Typography -->
+    <div class="bento-card col-4">
+      <div style="font-size:11px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--text3);margin-bottom:12px;">Typography Scale</div>
+      <div style="font-size:32px;font-weight:800;letter-spacing:-1px;line-height:1;margin-bottom:8px;">Display</div>
+      <div style="font-size:22px;font-weight:700;letter-spacing:-.5px;margin-bottom:8px;color:var(--text)">Heading</div>
+      <div style="font-size:16px;font-weight:600;margin-bottom:8px;color:var(--text)">Subheading</div>
+      <div style="font-size:14px;color:var(--text2);line-height:1.6;margin-bottom:8px;">Body — clean readable text at 14–15px with 1.6 line-height. Never go below 13px for content.</div>
+      <div style="font-size:12px;color:var(--text3);font-weight:500;letter-spacing:.3px;">Caption / Label text</div>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+// Animate bars on load
+document.querySelectorAll('.bar').forEach((bar, i) => {
+  bar.style.height = '4px';
+  const finalH = bar.style.height;
+  const heights = ['40%','55%','45%','70%','60%','85%','100%','50%','65%','55%','80%','70%','90%','100%','90%','80%','85%','70%','65%','60%','50%'];
+  setTimeout(() => {
+    bar.style.transition = 'height 0.5s ease';
+    bar.style.height = heights[i % heights.length];
+  }, 100 + i * 40);
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+# Windows user profile system files
+NTUSER.DAT*
+ntuser.dat*
+ntuser.ini
+AppData/
+Application Data
+Local Settings
+My Documents
+My Music
+My Pictures
+My Videos
+Cookies
+Recent
+NetHood
+PrintHood
+SendTo
+Start Menu
+Templates
+
+# Large/personal directories
+OneDrive/
+Documents/
+Downloads/
+Contacts/
+Favorites/
+Links/
+Searches/
+Videos/
+Music/
+BrawlhallaReplays/
+Zomboid/
+curseforge/
+scoop/
+node_modules/
+
+# Misc
+.gk/
+.gnupg/
+.lunarclient/
+.notebooklm/
+.ollama/
+.mputils/
+.node_repl_history
+ansel/

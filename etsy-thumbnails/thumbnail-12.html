@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Personalized Mama Mug Thumbnail</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;1,400&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{width:2000px;height:2000px;overflow:hidden;}
+.canvas{
+  width:2000px;height:2000px;position:relative;
+  background:linear-gradient(140deg,#fff8f0 0%,#fdf4f8 60%,#f8f4ff 100%);
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;
+}
+.orb1{position:absolute;width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(255,180,180,.2),transparent 65%);top:-200px;right:-200px;}
+.orb2{position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(200,160,255,.18),transparent 65%);bottom:-150px;left:-150px;}
+.scatter{position:absolute;font-size:60px;opacity:.12;}
+
+.left{flex:1;display:flex;flex-direction:column;justify-content:center;gap:30px;padding:80px 40px 80px 120px;}
+.right{flex:1;display:flex;align-items:center;justify-content:center;padding:80px;}
+
+.eyebrow{font-family:'DM Sans',sans-serif;font-weight:700;font-size:22px;color:#c06080;text-transform:uppercase;letter-spacing:6px;}
+.title{font-family:'Cormorant Garamond',serif;font-size:130px;font-weight:600;line-height:.85;color:#2d1a2a;}
+.title em{font-style:italic;color:#c06080;}
+.name-preview{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:60px;color:rgba(192,96,128,.7);border-bottom:2px dashed rgba(192,96,128,.3);padding-bottom:8px;width:fit-content;}
+.sub{font-family:'DM Sans',sans-serif;font-size:26px;color:rgba(45,26,42,.5);line-height:1.6;}
+.spec{font-family:'DM Sans',sans-serif;font-size:24px;color:#6b4058;line-height:1.5;}
+.pills{display:flex;gap:12px;flex-wrap:wrap;}
+.pill{padding:10px 24px;border-radius:20px;font-size:18px;font-weight:700;border:2px solid;}
+.p1{background:#fff0f4;border-color:#e090a8;color:#a04060;}
+.p2{background:#f8f4ff;border-color:#c0a0e0;color:#6040a0;}
+.p3{background:#fff8f0;border-color:#d4a060;color:#8b5830;}
+
+/* Mug */
+.mug-wrap{position:relative;}
+.mug-shadow{position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);width:480px;height:36px;background:rgba(0,0,0,.1);border-radius:50%;filter:blur(20px);}
+</style>
+</head>
+<body>
+<div class="canvas">
+  <div class="orb1"></div><div class="orb2"></div>
+  <span class="scatter" style="top:80px;left:200px;">🌸</span>
+  <span class="scatter" style="top:300px;right:180px;">💕</span>
+  <span class="scatter" style="bottom:200px;left:150px;">✨</span>
+  <span class="scatter" style="bottom:100px;right:250px;">🌷</span>
+
+  <div class="left">
+    <div class="eyebrow">Personalized Gift</div>
+    <div class="title">Mama<br><em>Mug</em></div>
+    <div class="name-preview">Emma, Lily & Zoe's Mama</div>
+    <div class="spec">Add up to 4 kids' names<br>Customized just for her</div>
+    <div class="sub">11oz ceramic · Gift-ready<br>Mother's Day · Birthday · Just Because</div>
+    <div class="pills">
+      <div class="pill p1">Mother's Day Gift</div>
+      <div class="pill p2">Personalized Mama</div>
+      <div class="pill p3">Kids' Names Mug</div>
+    </div>
+  </div>
+  <div class="right">
+    <div class="mug-wrap">
+      <div class="mug-shadow"></div>
+      <svg viewBox="0 0 300 280" width="720" height="680" fill="none">
+        <!-- Mug body — warm blush -->
+        <path d="M40,60 Q40,40 60,38 L240,38 Q260,40 260,60 L260,220 Q258,248 230,252 L70,252 Q42,248 40,220 Z" fill="#fff8f8" stroke="#e8c0c8" stroke-width="2"/>
+        <!-- Handle -->
+        <path d="M260,95 Q298,95 298,132 Q298,169 260,169" stroke="#e8c0c8" stroke-width="12" fill="none" stroke-linecap="round"/>
+        <!-- Rim -->
+        <ellipse cx="150" cy="40" rx="110" ry="14" fill="#fdf0f0" stroke="#e8c0c8" stroke-width="1.5"/>
+        <!-- Bottom -->
+        <ellipse cx="150" cy="252" rx="90" ry="10" fill="#f8e8e8" stroke="#e8c0c8" stroke-width="1"/>
+
+        <!-- Mama script text -->
+        <text x="150" y="105" font-family="Georgia,serif" font-style="italic" font-size="32" fill="#c06080" text-anchor="middle" font-weight="600">Mama</text>
+
+        <!-- Heart -->
+        <path d="M135,115 Q133,111 130,111 Q124,111 124,118 Q124,123 135,130 Q146,123 146,118 Q146,111 140,111 Q137,111 135,115Z" fill="#e090a8"/>
+
+        <!-- Kids names -->
+        <text x="150" y="155" font-family="Georgia,serif" font-style="italic" font-size="14" fill="#b07090" text-anchor="middle">Emma · Lily · Zoe</text>
+
+        <!-- Floral garland at bottom -->
+        <circle cx="80" cy="200" r="8" fill="#f0d0d8" stroke="#e0b0c0" stroke-width="1.2"/>
+        <circle cx="100" cy="208" r="6" fill="#f0d0d8" stroke="#e0b0c0" stroke-width="1.2"/>
+        <circle cx="120" cy="212" r="7" fill="#f8e0e8" stroke="#e0b0c0" stroke-width="1.2"/>
+        <circle cx="150" cy="214" r="9" fill="#f0d0d8" stroke="#e0b0c0" stroke-width="1.2"/>
+        <circle cx="180" cy="212" r="7" fill="#f8e0e8" stroke="#e0b0c0" stroke-width="1.2"/>
+        <circle cx="200" cy="208" r="6" fill="#f0d0d8" stroke="#e0b0c0" stroke-width="1.2"/>
+        <circle cx="220" cy="200" r="8" fill="#f0d0d8" stroke="#e0b0c0" stroke-width="1.2"/>
+        <!-- Flower centers -->
+        <circle cx="80" cy="200" r="3" fill="#e8c870"/>
+        <circle cx="120" cy="212" r="2.5" fill="#e8c870"/>
+        <circle cx="150" cy="214" r="3.5" fill="#e8c870"/>
+        <circle cx="180" cy="212" r="2.5" fill="#e8c870"/>
+        <circle cx="220" cy="200" r="3" fill="#e8c870"/>
+        <!-- Leaves between flowers -->
+        <ellipse cx="90" cy="204" rx="6" ry="10" fill="#a0c880" opacity=".6" transform="rotate(-30,90,204)"/>
+        <ellipse cx="135" cy="213" rx="6" ry="10" fill="#a0c880" opacity=".6" transform="rotate(-10,135,213)"/>
+        <ellipse cx="165" cy="213" rx="6" ry="10" fill="#a0c880" opacity=".6" transform="rotate(10,165,213)"/>
+        <ellipse cx="210" cy="204" rx="6" ry="10" fill="#a0c880" opacity=".6" transform="rotate(30,210,204)"/>
+
+        <!-- Personalization note -->
+        <text x="150" y="240" font-family="Georgia,serif" font-style="italic" font-size="10" fill="#c0a0a8" text-anchor="middle">Personalized with your names ♡</text>
+      </svg>
+    </div>
+  </div>
+</div>
+</body>
+</html>

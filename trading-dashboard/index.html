@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trading Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: #0d0d0d;
+      color: #e0e0e0;
+      min-height: 100vh;
+    }
+
+    header {
+      background: #111;
+      border-bottom: 1px solid #222;
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    header h1 { font-size: 18px; font-weight: 600; color: #fff; }
+    header span { font-size: 13px; color: #555; }
+
+    nav {
+      display: flex;
+      gap: 4px;
+      background: #111;
+      padding: 0 24px;
+      border-bottom: 1px solid #222;
+    }
+
+    nav button {
+      background: none;
+      border: none;
+      color: #666;
+      padding: 12px 16px;
+      font-size: 13px;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: all 0.2s;
+    }
+
+    nav button:hover { color: #ccc; }
+    nav button.active { color: #fff; border-bottom-color: #3b82f6; }
+
+    .tab { display: none; padding: 24px; max-width: 1100px; margin: 0 auto; }
+    .tab.active { display: block; }
+
+    /* --- OVERVIEW --- */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .stat-card {
+      background: #161616;
+      border: 1px solid #222;
+      border-radius: 8px;
+      padding: 16px;
+    }
+
+    .stat-card .label { font-size: 11px; color: #555; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
+    .stat-card .value { font-size: 22px; font-weight: 700; }
+    .stat-card .value.green { color: #22c55e; }
+    .stat-card .value.red { color: #ef4444; }
+    .stat-card .value.neutral { color: #fff; }
+
+    .charts-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .chart-card {
+      background: #161616;
+      border: 1px solid #222;
+      border-radius: 8px;
+      padding: 16px;
+    }
+
+    .chart-card h3 { font-size: 13px; color: #888; margin-bottom: 12px; }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 4px;
+    }
+
+    .cal-day {
+      aspect-ratio: 1;
+      border-radius: 3px;
+      background: #1e1e1e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+      color: #444;
+      cursor: default;
+    }
+
+    .cal-day.green { background: #14532d; color: #22c55e; }
+    .cal-day.red { background: #450a0a; color: #ef4444; }
+
+    /* --- TRADE LOG --- */
+    .log-form {
+      background: #161616;
+      border: 1px solid #222;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 24px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+      gap: 12px;
+    }
+
+    .log-form .full-width { grid-column: 1 / -1; }
+
+    .form-group { display: flex; flex-direction: column; gap: 6px; }
+    .form-group label { font-size: 11px; color: #666; text-transform: uppercase; letter-spacing: 0.5px; }
+
+    input, select, textarea {
+      background: #1e1e1e;
+      border: 1px solid #2a2a2a;
+      border-radius: 6px;
+      color: #e0e0e0;
+      padding: 8px 10px;
+      font-size: 13px;
+      width: 100%;
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    input:focus, select:focus, textarea:focus { border-color: #3b82f6; }
+    textarea { resize: vertical; min-height: 70px; }
+
+    select option { background: #1e1e1e; }
+
+    .btn {
+      background: #3b82f6;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      padding: 9px 18px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .btn:hover { background: #2563eb; }
+    .btn.secondary { background: #1e1e1e; color: #ccc; border: 1px solid #333; }
+    .btn.secondary:hover { background: #2a2a2a; }
+    .btn.danger { background: #ef4444; }
+    .btn.danger:hover { background: #dc2626; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13px;
+    }
+
+    th {
+      text-align: left;
+      padding: 10px 12px;
+      color: #555;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      border-bottom: 1px solid #222;
+    }
+
+    td {
+      padding: 10px 12px;
+      border-bottom: 1px solid #1a1a1a;
+      color: #ccc;
+    }
+
+    tr:hover td { background: #161616; }
+
+    .grade-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    .grade-A\+ { background: #14532d; color: #22c55e; }
+    .grade-A  { background: #1a3a1a; color: #4ade80; }
+    .grade-B  { background: #1a2e4a; color: #60a5fa; }
+    .grade-C  { background: #3a2a00; color: #fbbf24; }
+    .grade-D  { background: #450a0a; color: #ef4444; }
+
+    .pnl-pos { color: #22c55e; }
+    .pnl-neg { color: #ef4444; }
+
+    /* --- AI COACH --- */
+    .coach-card {
+      background: #161616;
+      border: 1px solid #222;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 16px;
+    }
+
+    .coach-card h3 { font-size: 14px; color: #fff; margin-bottom: 8px; }
+    .coach-card p { font-size: 13px; color: #888; line-height: 1.6; }
+
+    .tendency-item {
+      background: #1a1a1a;
+      border-left: 3px solid #f59e0b;
+      border-radius: 0 6px 6px 0;
+      padding: 12px 16px;
+      margin-bottom: 10px;
+    }
+
+    .tendency-item .title { font-size: 13px; font-weight: 600; color: #fbbf24; margin-bottom: 4px; }
+    .tendency-item .desc { font-size: 12px; color: #777; line-height: 1.5; }
+
+    .coaching-note {
+      background: #0a1628;
+      border: 1px solid #1d4ed8;
+      border-radius: 8px;
+      padding: 16px;
+      margin-top: 16px;
+    }
+
+    .coaching-note .label { font-size: 11px; color: #3b82f6; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+    .coaching-note p { font-size: 13px; color: #93c5fd; line-height: 1.6; }
+
+    /* --- PLAYBOOK --- */
+    .playbook-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+
+    .setup-card {
+      background: #161616;
+      border: 1px solid #222;
+      border-radius: 8px;
+      padding: 18px;
+    }
+
+    .setup-card h3 { font-size: 14px; color: #fff; margin-bottom: 4px; }
+    .setup-card .setup-stats { font-size: 12px; color: #555; margin-bottom: 12px; }
+    .setup-card ul { list-style: none; }
+    .setup-card ul li { font-size: 12px; color: #888; padding: 3px 0; display: flex; gap: 8px; }
+    .setup-card ul li::before { content: "✓"; color: #22c55e; flex-shrink: 0; }
+
+    .add-setup-form {
+      background: #161616;
+      border: 1px dashed #2a2a2a;
+      border-radius: 8px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    /* --- DAILY CLOSE --- */
+    .ritual-form {
+      background: #161616;
+      border: 1px solid #222;
+      border-radius: 8px;
+      padding: 24px;
+      max-width: 640px;
+    }
+
+    .ritual-form h2 { font-size: 16px; color: #fff; margin-bottom: 4px; }
+    .ritual-form .subtitle { font-size: 13px; color: #555; margin-bottom: 20px; }
+    .ritual-form .form-group { margin-bottom: 16px; }
+    .ritual-form label { display: block; font-size: 12px; color: #666; margin-bottom: 6px; }
+
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: #444;
+      font-size: 14px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .section-header h2 { font-size: 15px; color: #fff; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Trading Dashboard</h1>
+  <span id="today-date"></span>
+</header>
+
+<nav>
+  <button class="active" onclick="showTab('overview')">Overview</button>
+  <button onclick="showTab('log')">Trade Log</button>
+  <button onclick="showTab('coach')">AI Coach</button>
+  <button onclick="showTab('playbook')">Playbook</button>
+  <button onclick="showTab('ritual')">Daily Close</button>
+</nav>
+
+<!-- ============ OVERVIEW ============ -->
+<div id="tab-overview" class="tab active">
+  <div class="stats-grid" id="stats-grid"></div>
+  <div class="charts-row">
+    <div class="chart-card">
+      <h3>P&amp;L by Day</h3>
+      <canvas id="pnl-chart" height="160"></canvas>
+    </div>
+    <div class="chart-card">
+      <h3>Trades by Grade</h3>
+      <canvas id="grade-chart" height="160"></canvas>
+    </div>
+  </div>
+  <div class="chart-card">
+    <h3>Calendar</h3>
+    <div class="calendar-grid" id="calendar-grid"></div>
+  </div>
+</div>
+
+<!-- ============ TRADE LOG ============ -->
+<div id="tab-log" class="tab">
+  <div class="section-header">
+    <h2>Log a Trade</h2>
+  </div>
+  <div class="log-form">
+    <div class="form-group">
+      <label>Date</label>
+      <input type="date" id="t-date" />
+    </div>
+    <div class="form-group">
+      <label>Ticker</label>
+      <input type="text" id="t-ticker" placeholder="e.g. AAPL" />
+    </div>
+    <div class="form-group">
+      <label>Setup</label>
+      <input type="text" id="t-setup" placeholder="e.g. Bull flag" />
+    </div>
+    <div class="form-group">
+      <label>Direction</label>
+      <select id="t-direction">
+        <option>Long</option>
+        <option>Short</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label>P&amp;L ($)</label>
+      <input type="number" id="t-pnl" placeholder="e.g. 120 or -45" />
+    </div>
+    <div class="form-group">
+      <label>Grade</label>
+      <select id="t-grade">
+        <option value="A+">A+ — Perfect setup + execution</option>
+        <option value="A">A — Strong setup, good execution</option>
+        <option value="B" selected>B — Good setup or good execution</option>
+        <option value="C">C — Forced trade / broke a rule</option>
+        <option value="D">D — Should not have taken</option>
+      </select>
+    </div>
+    <div class="form-group full-width">
+      <label>Notes (what happened, what you saw, what you felt)</label>
+      <textarea id="t-notes" placeholder="Be specific — the AI coach reads these to find your patterns..."></textarea>
+    </div>
+    <div>
+      <button class="btn" onclick="addTrade()">Log Trade</button>
+    </div>
+  </div>
+
+  <div class="section-header">
+    <h2>Trade History</h2>
+  </div>
+  <table>
+    <thead>
+      <tr>
+        <th>Date</th>
+        <th>Ticker</th>
+        <th>Setup</th>
+        <th>Dir</th>
+        <th>P&amp;L</th>
+        <th>Grade</th>
+        <th>Notes</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody id="trade-table-body"></tbody>
+  </table>
+  <div id="log-empty" class="empty-state">No trades logged yet. Add your first trade above.</div>
+</div>
+
+<!-- ============ AI COACH ============ -->
+<div id="tab-coach" class="tab">
+  <div class="section-header">
+    <h2>AI Performance Coach</h2>
+    <button class="btn" onclick="runCoach()">Analyze My Trades</button>
+  </div>
+  <div id="coach-output">
+    <div class="empty-state">Click "Analyze My Trades" after logging at least 3 trades.</div>
+  </div>
+</div>
+
+<!-- ============ PLAYBOOK ============ -->
+<div id="tab-playbook" class="tab">
+  <div class="section-header">
+    <h2>Playbook</h2>
+  </div>
+  <div class="playbook-grid" id="playbook-grid">
+    <div class="add-setup-form" id="add-setup-form">
+      <div class="form-group">
+        <label>Setup Name</label>
+        <input type="text" id="s-name" placeholder="e.g. Bull Flag" />
+      </div>
+      <div class="form-group">
+        <label>Rules / Checks in Favor (one per line)</label>
+        <textarea id="s-rules" placeholder="Price above VWAP&#10;Volume spike on breakout&#10;Clean base pattern"></textarea>
+      </div>
+      <button class="btn" onclick="addSetup()">Add Setup</button>
+    </div>
+  </div>
+</div>
+
+<!-- ============ DAILY CLOSE ============ -->
+<div id="tab-ritual" class="tab">
+  <div class="ritual-form">
+    <h2>Daily Close Ritual</h2>
+    <p class="subtitle" id="ritual-date"></p>
+
+    <div class="form-group">
+      <label>What setups did you see today?</label>
+      <textarea id="r-setups" placeholder="Describe the patterns you identified, whether you took them or not..."></textarea>
+    </div>
+    <div class="form-group">
+      <label>What trades did you take? Why?</label>
+      <textarea id="r-took" placeholder="Walk through each trade you entered and your reasoning..."></textarea>
+    </div>
+    <div class="form-group">
+      <label>What did you avoid? Why?</label>
+      <textarea id="r-avoided" placeholder="Setups you passed on and the reason..."></textarea>
+    </div>
+    <div class="form-group">
+      <label>What did you learn today?</label>
+      <textarea id="r-learned" placeholder="One key takeaway from today's session..."></textarea>
+    </div>
+    <div class="form-group">
+      <label>Emotional state (1–10) and notes</label>
+      <input type="number" id="r-emotion" min="1" max="10" placeholder="7" style="width:80px;display:inline-block;margin-right:10px;" />
+      <input type="text" id="r-emotion-note" placeholder="e.g. Felt rushed, anxious after first loss" style="width:calc(100% - 100px);display:inline-block;" />
+    </div>
+    <button class="btn" onclick="saveRitual()">Save & Close Day</button>
+  </div>
+</div>
+
+<script>
+  // ── Storage ──────────────────────────────────────────────────
+  const store = {
+    trades: () => JSON.parse(localStorage.getItem('trades') || '[]'),
+    saveTrades: t => localStorage.setItem('trades', JSON.stringify(t)),
+    setups: () => JSON.parse(localStorage.getItem('setups') || '[]'),
+    saveSetups: s => localStorage.setItem('setups', JSON.stringify(s)),
+  };
+
+  // ── Tabs ─────────────────────────────────────────────────────
+  function showTab(name) {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+    event.target.classList.add('active');
+    if (name === 'overview') renderOverview();
+    if (name === 'log') renderTradeTable();
+    if (name === 'playbook') renderPlaybook();
+  }
+
+  // ── Overview ─────────────────────────────────────────────────
+  function renderOverview() {
+    const trades = store.trades();
+
+    const totalPnl = trades.reduce((s, t) => s + Number(t.pnl), 0);
+    const wins = trades.filter(t => Number(t.pnl) > 0);
+    const losses = trades.filter(t => Number(t.pnl) < 0);
+    const winRate = trades.length ? Math.round((wins.length / trades.length) * 100) : 0;
+    const avgWin = wins.length ? (wins.reduce((s, t) => s + Number(t.pnl), 0) / wins.length).toFixed(2) : 0;
+    const avgLoss = losses.length ? (losses.reduce((s, t) => s + Number(t.pnl), 0) / losses.length).toFixed(2) : 0;
+
+    const stats = [
+      { label: 'Total P&L', value: '$' + totalPnl.toFixed(2), cls: totalPnl >= 0 ? 'green' : 'red' },
+      { label: 'Win Rate', value: winRate + '%', cls: winRate >= 50 ? 'green' : 'red' },
+      { label: 'Total Trades', value: trades.length, cls: 'neutral' },
+      { label: 'Avg Win', value: '$' + avgWin, cls: 'green' },
+      { label: 'Avg Loss', value: '$' + avgLoss, cls: 'red' },
+      { label: 'Best Day', value: bestDay(trades), cls: 'green' },
+    ];
+
+    document.getElementById('stats-grid').innerHTML = stats.map(s =>
+      `<div class="stat-card"><div class="label">${s.label}</div><div class="value ${s.cls}">${s.value}</div></div>`
+    ).join('');
+
+    renderPnlChart(trades);
+    renderGradeChart(trades);
+    renderCalendar(trades);
+  }
+
+  function bestDay(trades) {
+    const byDay = {};
+    trades.forEach(t => { byDay[t.date] = (byDay[t.date] || 0) + Number(t.pnl); });
+    const max = Math.max(...Object.values(byDay), 0);
+    return '$' + max.toFixed(2);
+  }
+
+  function renderPnlChart(trades) {
+    const byDay = {};
+    trades.forEach(t => { byDay[t.date] = (byDay[t.date] || 0) + Number(t.pnl); });
+    const labels = Object.keys(byDay).sort().slice(-14);
+    const data = labels.map(d => byDay[d]);
+
+    const ctx = document.getElementById('pnl-chart').getContext('2d');
+    if (window._pnlChart) window._pnlChart.destroy();
+    window._pnlChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels,
+        datasets: [{
+          data,
+          backgroundColor: data.map(v => v >= 0 ? '#14532d' : '#450a0a'),
+          borderColor: data.map(v => v >= 0 ? '#22c55e' : '#ef4444'),
+          borderWidth: 1,
+          borderRadius: 3,
+        }]
+      },
+      options: {
+        plugins: { legend: { display: false } },
+        scales: {
+          x: { ticks: { color: '#555', font: { size: 10 } }, grid: { color: '#1a1a1a' } },
+          y: { ticks: { color: '#555', font: { size: 10 } }, grid: { color: '#1a1a1a' } }
+        }
+      }
+    });
+  }
+
+  function renderGradeChart(trades) {
+    const grades = ['A+', 'A', 'B', 'C', 'D'];
+    const counts = grades.map(g => trades.filter(t => t.grade === g).length);
+    const colors = ['#22c55e', '#4ade80', '#60a5fa', '#fbbf24', '#ef4444'];
+
+    const ctx = document.getElementById('grade-chart').getContext('2d');
+    if (window._gradeChart) window._gradeChart.destroy();
+    window._gradeChart = new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: grades,
+        datasets: [{ data: counts, backgroundColor: colors, borderWidth: 0 }]
+      },
+      options: {
+        plugins: {
+          legend: { position: 'right', labels: { color: '#888', font: { size: 11 } } }
+        }
+      }
+    });
+  }
+
+  function renderCalendar(trades) {
+    const byDay = {};
+    trades.forEach(t => { byDay[t.date] = (byDay[t.date] || 0) + Number(t.pnl); });
+
+    const grid = document.getElementById('calendar-grid');
+    const today = new Date();
+    const days = [];
+    for (let i = 27; i >= 0; i--) {
+      const d = new Date(today);
+      d.setDate(today.getDate() - i);
+      days.push(d.toISOString().split('T')[0]);
+    }
+
+    grid.innerHTML = days.map(d => {
+      const pnl = byDay[d];
+      const cls = pnl === undefined ? '' : pnl >= 0 ? 'green' : 'red';
+      const label = new Date(d).getDate();
+      return `<div class="cal-day ${cls}" title="${d}${pnl !== undefined ? ': $' + pnl.toFixed(2) : ''}">${label}</div>`;
+    }).join('');
+  }
+
+  // ── Trade Log ────────────────────────────────────────────────
+  function addTrade() {
+    const date = document.getElementById('t-date').value;
+    const ticker = document.getElementById('t-ticker').value.trim().toUpperCase();
+    const setup = document.getElementById('t-setup').value.trim();
+    const direction = document.getElementById('t-direction').value;
+    const pnl = document.getElementById('t-pnl').value;
+    const grade = document.getElementById('t-grade').value;
+    const notes = document.getElementById('t-notes').value.trim();
+
+    if (!date || !ticker || !pnl) { alert('Date, ticker, and P&L are required.'); return; }
+
+    const trades = store.trades();
+    trades.unshift({ id: Date.now(), date, ticker, setup, direction, pnl: Number(pnl), grade, notes });
+    store.saveTrades(trades);
+
+    document.getElementById('t-ticker').value = '';
+    document.getElementById('t-pnl').value = '';
+    document.getElementById('t-notes').value = '';
+    document.getElementById('t-setup').value = '';
+
+    renderTradeTable();
+  }
+
+  function deleteTrade(id) {
+    const trades = store.trades().filter(t => t.id !== id);
+    store.saveTrades(trades);
+    renderTradeTable();
+  }
+
+  function renderTradeTable() {
+    const trades = store.trades();
+    const tbody = document.getElementById('trade-table-body');
+    const empty = document.getElementById('log-empty');
+
+    if (!trades.length) { tbody.innerHTML = ''; empty.style.display = 'block'; return; }
+    empty.style.display = 'none';
+
+    tbody.innerHTML = trades.map(t => `
+      <tr>
+        <td>${t.date}</td>
+        <td><strong>${t.ticker}</strong></td>
+        <td>${t.setup || '—'}</td>
+        <td>${t.direction}</td>
+        <td class="${Number(t.pnl) >= 0 ? 'pnl-pos' : 'pnl-neg'}">${Number(t.pnl) >= 0 ? '+' : ''}$${Number(t.pnl).toFixed(2)}</td>
+        <td><span class="grade-badge grade-${t.grade.replace('+','\\+')}">${t.grade}</span></td>
+        <td style="max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#555;" title="${t.notes}">${t.notes || '—'}</td>
+        <td><button class="btn danger" style="padding:4px 8px;font-size:11px;" onclick="deleteTrade(${t.id})">✕</button></td>
+      </tr>
+    `).join('');
+  }
+
+  // ── AI Coach ─────────────────────────────────────────────────
+  function runCoach() {
+    const trades = store.trades();
+    if (trades.length < 3) { alert('Log at least 3 trades before running the coach.'); return; }
+
+    // Simple rule-based analysis (no API key needed to start)
+    const tendencies = [];
+
+    const cGrades = trades.filter(t => t.grade === 'C' || t.grade === 'D');
+    if (cGrades.length / trades.length > 0.25)
+      tendencies.push({ title: 'Overtrading / Low-Quality Setups', desc: `${cGrades.length} of your ${trades.length} trades were C or D grade. You may be taking setups that don't fully meet your criteria.` });
+
+    const losers = trades.filter(t => Number(t.pnl) < 0);
+    if (losers.length) {
+      const avgLoss = losers.reduce((s, t) => s + Number(t.pnl), 0) / losers.length;
+      const winners = trades.filter(t => Number(t.pnl) > 0);
+      if (winners.length) {
+        const avgWin = winners.reduce((s, t) => s + Number(t.pnl), 0) / winners.length;
+        if (Math.abs(avgLoss) > avgWin)
+          tendencies.push({ title: 'Losses Larger Than Wins', desc: `Your avg win ($${avgWin.toFixed(2)}) is smaller than your avg loss ($${Math.abs(avgLoss).toFixed(2)}). Focus on cutting losses faster or letting winners run.` });
+      }
+    }
+
+    const noNotes = trades.filter(t => !t.notes);
+    if (noNotes.length > trades.length * 0.3)
+      tendencies.push({ title: 'Missing Trade Notes', desc: `${noNotes.length} trades have no notes. Detailed notes are what make the AI coach useful — write something on every trade, even one sentence.` });
+
+    const winRate = trades.length ? (trades.filter(t => Number(t.pnl) > 0).length / trades.length) * 100 : 0;
+    const coachNote = winRate >= 50
+      ? `You're winning more than you're losing — that's the foundation. Focus now on increasing the size of your wins relative to your losses.`
+      : `Your win rate is below 50%. Before adding new setups, focus on mastering one pattern until you understand exactly when it works and when it doesn't.`;
+
+    document.getElementById('coach-output').innerHTML = `
+      <div class="coach-card">
+        <h3>Behavioral Tendencies (${tendencies.length} found)</h3>
+        ${tendencies.length ? tendencies.map(t => `
+          <div class="tendency-item">
+            <div class="title">${t.title}</div>
+            <div class="desc">${t.desc}</div>
+          </div>`).join('') : '<p>No major tendencies detected yet. Keep logging trades.</p>'}
+        <div class="coaching-note">
+          <div class="label">Today's Coaching Note</div>
+          <p>${coachNote}</p>
+        </div>
+      </div>
+    `;
+  }
+
+  // ── Playbook ─────────────────────────────────────────────────
+  function addSetup() {
+    const name = document.getElementById('s-name').value.trim();
+    const rules = document.getElementById('s-rules').value.trim().split('\n').filter(Boolean);
+    if (!name) { alert('Setup name is required.'); return; }
+
+    const setups = store.setups();
+    setups.push({ id: Date.now(), name, rules });
+    store.saveSetups(setups);
+
+    document.getElementById('s-name').value = '';
+    document.getElementById('s-rules').value = '';
+    renderPlaybook();
+  }
+
+  function deleteSetup(id) {
+    store.saveSetups(store.setups().filter(s => s.id !== id));
+    renderPlaybook();
+  }
+
+  function renderPlaybook() {
+    const setups = store.setups();
+    const trades = store.trades();
+    const grid = document.getElementById('playbook-grid');
+
+    const cards = setups.map(s => {
+      const related = trades.filter(t => t.setup && t.setup.toLowerCase() === s.name.toLowerCase());
+      const wins = related.filter(t => Number(t.pnl) > 0).length;
+      const wr = related.length ? Math.round(wins / related.length * 100) : 0;
+      return `
+        <div class="setup-card">
+          <h3>${s.name}</h3>
+          <div class="setup-stats">${related.length} trades · ${wr}% win rate</div>
+          <ul>${s.rules.map(r => `<li>${r}</li>`).join('')}</ul>
+          <button class="btn danger" style="margin-top:12px;padding:5px 10px;font-size:11px;" onclick="deleteSetup(${s.id})">Remove</button>
+        </div>`;
+    }).join('');
+
+    grid.innerHTML = cards + document.getElementById('add-setup-form').outerHTML;
+  }
+
+  // ── Daily Close ───────────────────────────────────────────────
+  function saveRitual() {
+    const data = {
+      date: new Date().toISOString().split('T')[0],
+      setups: document.getElementById('r-setups').value,
+      took: document.getElementById('r-took').value,
+      avoided: document.getElementById('r-avoided').value,
+      learned: document.getElementById('r-learned').value,
+      emotion: document.getElementById('r-emotion').value,
+      emotionNote: document.getElementById('r-emotion-note').value,
+    };
+
+    const rituals = JSON.parse(localStorage.getItem('rituals') || '[]');
+    rituals.unshift(data);
+    localStorage.setItem('rituals', JSON.stringify(rituals));
+
+    alert('Day closed. See you tomorrow.');
+    ['r-setups','r-took','r-avoided','r-learned','r-emotion','r-emotion-note'].forEach(id => document.getElementById(id).value = '');
+  }
+
+  // ── Init ──────────────────────────────────────────────────────
+  document.getElementById('today-date').textContent = new Date().toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+  document.getElementById('ritual-date').textContent = new Date().toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric' });
+  document.getElementById('t-date').value = new Date().toISOString().split('T')[0];
+
+  renderOverview();
+  renderTradeTable();
+</script>
+</body>
+</html>

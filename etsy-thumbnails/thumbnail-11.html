@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Boy Mom Shirt Thumbnail</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{width:2000px;height:2000px;overflow:hidden;}
+.canvas{
+  width:2000px;height:2000px;position:relative;
+  background:#f8f4f0;
+  display:flex;align-items:center;justify-content:center;
+  gap:80px;overflow:hidden;
+}
+.accent-bar{position:absolute;left:0;top:0;bottom:0;width:12px;background:linear-gradient(180deg,#1a1a2e,#2d4a8a,#4a7aff);}
+.corner{position:absolute;bottom:0;right:0;width:400px;height:400px;background:radial-gradient(circle at bottom right,rgba(74,122,255,.12),transparent 70%);}
+
+.left{flex:1;display:flex;flex-direction:column;justify-content:center;gap:32px;padding:80px 40px 80px 100px;}
+.right{flex:1;display:flex;align-items:center;justify-content:center;padding:80px;}
+
+.eyebrow{font-family:'DM Sans',sans-serif;font-weight:800;font-size:22px;color:#4a7aff;text-transform:uppercase;letter-spacing:6px;}
+.title{font-family:'Bebas Neue',sans-serif;font-size:180px;line-height:.85;color:#1a1a2e;letter-spacing:2px;}
+.title .blue{color:#4a7aff;}
+.subtitle{font-family:'DM Sans',sans-serif;font-size:40px;font-weight:800;color:#1a1a2e;line-height:1.2;}
+.desc{font-family:'DM Sans',sans-serif;font-size:24px;color:rgba(26,26,46,.5);line-height:1.6;}
+.pills{display:flex;gap:12px;flex-wrap:wrap;}
+.pill{padding:10px 24px;border-radius:4px;font-size:18px;font-weight:800;border:2px solid;}
+.p1{background:#1a1a2e;color:#fff;border-color:#1a1a2e;}
+.p2{background:transparent;border-color:#4a7aff;color:#2d4a8a;}
+.p3{background:transparent;border-color:#ccc;color:#666;}
+
+/* T-shirt SVG */
+.shirt-wrap{position:relative;}
+.shirt-shadow{position:absolute;bottom:-24px;left:50%;transform:translateX(-50%);width:450px;height:30px;background:rgba(0,0,0,.1);border-radius:50%;filter:blur(16px);}
+</style>
+</head>
+<body>
+<div class="canvas">
+  <div class="accent-bar"></div><div class="corner"></div>
+  <div class="left">
+    <div class="eyebrow">Mom Life Collection</div>
+    <div class="title">BOY<br><span class="blue">MOM</span></div>
+    <div class="subtitle">Raising Wild Things<br>& Loving Every Second</div>
+    <div class="desc">Unisex · S–3XL · Soft Bella+Canvas<br>Ships in 3-5 business days</div>
+    <div class="pills">
+      <div class="pill p1">Boy Mom Gift</div>
+      <div class="pill p2">Mom Life Shirt</div>
+      <div class="pill p3">Unisex Fit</div>
+    </div>
+  </div>
+  <div class="right">
+    <div class="shirt-wrap">
+      <div class="shirt-shadow"></div>
+      <svg viewBox="0 0 300 320" width="680" height="725" fill="none">
+        <!-- T-shirt shape -->
+        <path d="M80,30 Q60,30 45,50 L10,110 L60,125 L60,295 Q60,310 75,310 L225,310 Q240,310 240,295 L240,125 L290,110 L255,50 Q240,30 220,30 L200,30 Q195,55 150,55 Q105,55 100,30 Z" fill="#1a1a2e" stroke="none"/>
+        <!-- Collar -->
+        <path d="M100,30 Q105,55 150,55 Q195,55 200,30" fill="#16162a" stroke="none"/>
+        <!-- Shirt fold/shadow lines -->
+        <path d="M150,80 L150,290" stroke="rgba(255,255,255,.04)" stroke-width="1"/>
+        <path d="M60,200 Q80,198 100,200" stroke="rgba(255,255,255,.04)" stroke-width="1"/>
+        <path d="M200,200 Q220,198 240,200" stroke="rgba(255,255,255,.04)" stroke-width="1"/>
+
+        <!-- Design on shirt -->
+        <!-- BOY MOM text -->
+        <text x="150" y="150" font-family="Impact,sans-serif" font-size="44" fill="#fff" text-anchor="middle" font-weight="700" letter-spacing="4">BOY MOM</text>
+        <!-- Stars / lightning bolts -->
+        <text x="85" y="155" font-size="22" fill="#4a7aff">⚡</text>
+        <text x="200" y="155" font-size="22" fill="#4a7aff">⚡</text>
+        <!-- Subtext -->
+        <text x="150" y="178" font-family="Georgia,serif" font-style="italic" font-size="14" fill="rgba(255,255,255,.55)" text-anchor="middle">Raising Wild Things &amp; Loving It</text>
+        <!-- Decorative line -->
+        <line x1="80" y1="188" x2="220" y2="188" stroke="rgba(74,122,255,.5)" stroke-width="1.5"/>
+        <!-- Icons row -->
+        <text x="110" y="215" font-size="26" fill="rgba(255,255,255,.4)">🚀</text>
+        <text x="138" y="215" font-size="26" fill="rgba(255,255,255,.4)">⚽</text>
+        <text x="166" y="215" font-size="26" fill="rgba(255,255,255,.4)">🎮</text>
+      </svg>
+    </div>
+  </div>
+</div>
+</body>
+</html>

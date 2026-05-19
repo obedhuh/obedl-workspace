@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Planner Thumbnail</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@700;800&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{width:2000px;height:2000px;overflow:hidden;}
+.canvas{
+  width:2000px;height:2000px;position:relative;
+  background:linear-gradient(145deg,#06040f 0%,#130a2e 50%,#080514 100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:44px;overflow:hidden;
+}
+.g1{position:absolute;width:900px;height:900px;border-radius:50%;
+  background:radial-gradient(circle,rgba(192,84,255,.22),transparent 70%);
+  top:-280px;right:-180px;pointer-events:none;}
+.g2{position:absolute;width:700px;height:700px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,82,164,.18),transparent 70%);
+  bottom:-180px;left:-120px;pointer-events:none;}
+.g3{position:absolute;width:400px;height:400px;border-radius:50%;
+  background:radial-gradient(circle,rgba(52,211,153,.13),transparent 70%);
+  bottom:220px;right:140px;pointer-events:none;}
+
+.badge-best{
+  position:absolute;top:64px;left:64px;
+  background:linear-gradient(135deg,#ff52a4,#ff8c3c);
+  color:#fff;font-family:'Syne',sans-serif;font-weight:800;font-size:36px;
+  padding:20px 36px;border-radius:10px;text-transform:uppercase;letter-spacing:1px;
+  box-shadow:0 8px 32px rgba(255,82,164,.45);z-index:10;
+}
+.badge-sale{
+  position:absolute;top:64px;right:64px;
+  background:linear-gradient(135deg,#00e5a0,#00b4d8);
+  color:#06040f;font-family:'Bebas Neue',sans-serif;font-size:58px;
+  padding:16px 34px;border-radius:10px;line-height:1;
+  box-shadow:0 8px 32px rgba(0,229,160,.4);z-index:10;
+}
+
+.eyebrow{
+  font-family:'Manrope',sans-serif;font-weight:700;font-size:28px;
+  color:rgba(255,255,255,.32);text-transform:uppercase;letter-spacing:9px;
+  margin-top:90px;
+}
+
+.hero-num{
+  font-family:'Bebas Neue',sans-serif;font-size:320px;line-height:.85;
+  background:linear-gradient(90deg,#ff52a4,#c084fc,#60a5fa,#34d399,#fbbf24);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  filter:drop-shadow(0 0 50px rgba(192,84,255,.35));
+}
+.hero-sub{
+  font-family:'Syne',sans-serif;font-weight:800;font-size:70px;color:#fff;
+  text-transform:uppercase;letter-spacing:16px;margin-top:-12px;
+}
+
+/* tablet */
+.tablet{
+  width:600px;height:410px;
+  background:#12102a;border-radius:30px;
+  border:3px solid rgba(255,255,255,.1);overflow:hidden;
+  display:flex;flex-direction:column;
+  box-shadow:0 50px 130px rgba(0,0,0,.7),0 0 90px rgba(192,84,255,.18);
+}
+.t-notch{height:22px;display:flex;align-items:center;justify-content:center;padding-top:10px;}
+.t-notch span{width:52px;height:5px;background:rgba(255,255,255,.12);border-radius:3px;}
+.t-hdr{padding:10px 24px 8px;font-family:'Syne',sans-serif;font-weight:800;font-size:19px;color:#fff;}
+.tabs{display:flex;gap:9px;padding:0 24px 10px;}
+.tab{padding:9px 19px;border-radius:20px;font-family:'Manrope',sans-serif;font-size:15px;font-weight:700;color:#fff;}
+.ta{background:#ff52a4;} .tb{background:#c084fc;} .tc{background:#60a5fa;} .td{background:#34d399;} .te{background:#fbbf24;color:#111;}
+.t-body{flex:1;padding:8px 24px 16px;display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:10px;}
+.blk{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:13px;display:flex;flex-direction:column;gap:8px;}
+.ln{height:5px;border-radius:3px;background:rgba(255,255,255,.08);}
+.lp{background:rgba(255,82,164,.5);width:72%;}
+.lv{background:rgba(192,132,252,.5);width:55%;}
+.lb{background:rgba(96,165,250,.5);width:80%;}
+.lg{background:rgba(52,211,153,.5);width:63%;}
+
+.stats{display:flex;align-items:center;gap:52px;}
+.stat{text-align:center;}
+.sn{font-family:'Bebas Neue',sans-serif;font-size:100px;line-height:1;}
+.sl{font-family:'Manrope',sans-serif;font-size:22px;font-weight:700;color:rgba(255,255,255,.32);text-transform:uppercase;letter-spacing:3px;}
+.sn1{color:#ff52a4;}.sn2{color:#c084fc;}
+.sdiv{width:2px;height:95px;background:rgba(255,255,255,.1);}
+
+.fmts{display:flex;gap:18px;flex-wrap:wrap;justify-content:center;}
+.fmt{padding:13px 30px;border-radius:40px;font-family:'Manrope',sans-serif;font-size:22px;font-weight:700;text-transform:uppercase;letter-spacing:1px;}
+.fa{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.11);color:#999;}
+.fb{background:rgba(192,84,255,.16);border:1px solid rgba(192,84,255,.38);color:#c084fc;}
+</style>
+</head>
+<body>
+<div class="canvas">
+  <div class="g1"></div><div class="g2"></div><div class="g3"></div>
+  <div class="badge-best">⭐ Bestseller</div>
+  <div class="badge-sale">75% OFF</div>
+  <div class="eyebrow">All-in-One Digital Planner</div>
+  <div class="hero-num">830+</div>
+  <div class="hero-sub">Pages</div>
+  <div class="tablet">
+    <div class="t-notch"><span></span></div>
+    <div class="t-hdr">📅 My Planner 2026–2028</div>
+    <div class="tabs">
+      <div class="tab ta">Daily</div><div class="tab tb">Weekly</div>
+      <div class="tab tc">Monthly</div><div class="tab td">Goals</div><div class="tab te">Notes</div>
+    </div>
+    <div class="t-body">
+      <div class="blk"><div class="ln lp"></div><div class="ln"></div><div class="ln lp" style="width:40%"></div><div class="ln" style="width:55%"></div></div>
+      <div class="blk"><div class="ln lv"></div><div class="ln" style="width:65%"></div><div class="ln lv" style="width:45%"></div></div>
+      <div class="blk"><div class="ln lg"></div><div class="ln" style="width:78%"></div><div class="ln lg" style="width:50%"></div><div class="ln" style="width:35%"></div></div>
+      <div class="blk"><div class="ln lb"></div><div class="ln" style="width:60%"></div><div class="ln lb" style="width:70%"></div></div>
+    </div>
+  </div>
+  <div class="stats">
+    <div class="stat"><div class="sn sn1">230+</div><div class="sl">Templates</div></div>
+    <div class="sdiv"></div>
+    <div class="stat"><div class="sn sn2">3 YRS</div><div class="sl">Coverage</div></div>
+  </div>
+  <div class="fmts">
+    <div class="fmt fb">PDF</div>
+    <div class="fmt fa">GoodNotes</div>
+    <div class="fmt fa">Notability</div>
+    <div class="fmt fb">⚡ Instant Download</div>
+  </div>
+</div>
+</body>
+</html>

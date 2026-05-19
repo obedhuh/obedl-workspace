@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Budget Spreadsheet Thumbnail</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{width:2000px;height:2000px;overflow:hidden;}
+.canvas{
+  width:2000px;height:2000px;position:relative;
+  background:#0d1117;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:44px;overflow:hidden;
+}
+.glow1{position:absolute;width:800px;height:800px;border-radius:50%;background:radial-gradient(circle,rgba(0,200,100,.12),transparent 70%);top:-200px;right:-200px;}
+.glow2{position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(0,100,255,.1),transparent 70%);bottom:-150px;left:-150px;}
+
+.eyebrow{font-family:'DM Sans',sans-serif;font-weight:700;font-size:22px;color:rgba(0,200,100,.7);text-transform:uppercase;letter-spacing:8px;}
+.hero-num{font-family:'Syne',sans-serif;font-size:340px;font-weight:800;line-height:.85;background:linear-gradient(135deg,#00c864,#00ff88);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.hero-sub{font-family:'DM Sans',sans-serif;font-size:64px;font-weight:700;color:rgba(255,255,255,.8);text-transform:uppercase;letter-spacing:6px;}
+.hero-type{font-family:'DM Sans',sans-serif;font-size:24px;color:rgba(255,255,255,.25);text-transform:uppercase;letter-spacing:5px;margin-top:-4px;}
+
+/* Spreadsheet preview */
+.sheet{background:#161b22;border:1px solid rgba(255,255,255,.08);border-radius:14px;width:900px;overflow:hidden;}
+.sheet-header{background:#1c2128;padding:14px 20px;display:flex;gap:16px;align-items:center;border-bottom:1px solid rgba(255,255,255,.06);}
+.sh-dot{width:14px;height:14px;border-radius:50%;}
+.sh-title{font-size:16px;font-weight:700;color:rgba(255,255,255,.5);margin-left:8px;flex:1;text-align:center;}
+.sheet-row{display:grid;grid-template-columns:180px 1fr 1fr 1fr 1fr;border-bottom:1px solid rgba(255,255,255,.04);}
+.sheet-row.header-row{background:rgba(0,200,100,.08);}
+.sr-cell{padding:12px 16px;font-size:16px;font-weight:600;}
+.sr-cell.label{color:rgba(255,255,255,.6);}
+.sr-cell.header{color:rgba(0,200,100,.8);font-size:13px;text-transform:uppercase;letter-spacing:1px;}
+.sr-cell.green{color:#00c864;}
+.sr-cell.red{color:#ff4444;}
+.sr-cell.dim{color:rgba(255,255,255,.3);}
+.sheet-total{display:grid;grid-template-columns:180px 1fr 1fr 1fr 1fr;background:rgba(0,200,100,.05);border-top:2px solid rgba(0,200,100,.2);}
+.st-cell{padding:14px 16px;font-size:17px;font-weight:700;}
+
+.stat-row{display:flex;gap:16px;width:900px;}
+.stat-card{flex:1;background:#161b22;border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:24px;text-align:center;}
+.sc-num{font-family:'Syne',sans-serif;font-size:38px;font-weight:800;}
+.sc-lbl{font-size:13px;font-weight:600;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:1.5px;margin-top:4px;}
+.green{color:#00c864;}
+.red{color:#ff4444;}
+.blue{color:#4488ff;}
+
+.fmts{display:flex;gap:14px;}
+.fmt{padding:12px 28px;border-radius:6px;font-family:'DM Sans',sans-serif;font-size:20px;font-weight:700;text-transform:uppercase;letter-spacing:1px;}
+.fa{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);color:rgba(255,255,255,.45);}
+.fb{background:linear-gradient(135deg,#00c864,#00a050);color:#fff;box-shadow:0 4px 20px rgba(0,200,100,.3);}
+</style>
+</head>
+<body>
+<div class="canvas">
+  <div class="glow1"></div><div class="glow2"></div>
+  <div class="eyebrow">Ultimate Budget Spreadsheet</div>
+  <div class="hero-num">26</div>
+  <div class="hero-sub">Finance Tabs</div>
+  <div class="hero-type">Budget · Savings · Debt · Net Worth · Investments</div>
+  <div class="sheet">
+    <div class="sheet-header">
+      <div class="sh-dot" style="background:#ff5f57;"></div>
+      <div class="sh-dot" style="background:#ffbe2e;"></div>
+      <div class="sh-dot" style="background:#28c840;"></div>
+      <div class="sh-title">Monthly Budget Tracker</div>
+    </div>
+    <div class="sheet-row header-row">
+      <div class="sr-cell header">Category</div>
+      <div class="sr-cell header">Budget</div>
+      <div class="sr-cell header">Actual</div>
+      <div class="sr-cell header">Remaining</div>
+      <div class="sr-cell header">% Used</div>
+    </div>
+    <div class="sheet-row">
+      <div class="sr-cell label">Housing</div>
+      <div class="sr-cell dim">$1,500</div>
+      <div class="sr-cell dim">$1,500</div>
+      <div class="sr-cell green">$0</div>
+      <div class="sr-cell dim">100%</div>
+    </div>
+    <div class="sheet-row">
+      <div class="sr-cell label">Food & Dining</div>
+      <div class="sr-cell dim">$600</div>
+      <div class="sr-cell dim">$480</div>
+      <div class="sr-cell green">$120</div>
+      <div class="sr-cell green">80%</div>
+    </div>
+    <div class="sheet-row">
+      <div class="sr-cell label">Entertainment</div>
+      <div class="sr-cell dim">$200</div>
+      <div class="sr-cell dim">$275</div>
+      <div class="sr-cell red">-$75</div>
+      <div class="sr-cell red">138%</div>
+    </div>
+    <div class="sheet-row">
+      <div class="sr-cell label">Savings</div>
+      <div class="sr-cell dim">$500</div>
+      <div class="sr-cell dim">$500</div>
+      <div class="sr-cell green">$0</div>
+      <div class="sr-cell dim">100%</div>
+    </div>
+    <div class="sheet-total">
+      <div class="st-cell" style="color:#fff;">TOTAL</div>
+      <div class="st-cell green">$3,800</div>
+      <div class="st-cell" style="color:rgba(255,255,255,.7);">$3,755</div>
+      <div class="st-cell green">$45</div>
+      <div class="st-cell green">99%</div>
+    </div>
+  </div>
+  <div class="stat-row">
+    <div class="stat-card"><div class="sc-num green">$45</div><div class="sc-lbl">Under Budget</div></div>
+    <div class="stat-card"><div class="sc-num blue">12,400</div><div class="sc-lbl">Net Worth</div></div>
+    <div class="stat-card"><div class="sc-num" style="color:#ffbe2e;">$8,200</div><div class="sc-lbl">Debt Remaining</div></div>
+    <div class="stat-card"><div class="sc-num green">$1,850</div><div class="sc-lbl">Emergency Fund</div></div>
+  </div>
+  <div class="fmts">
+    <div class="fmt fb">⚡ Instant Download</div>
+    <div class="fmt fa">Google Sheets</div>
+    <div class="fmt fa">Excel</div>
+    <div class="fmt fa">Formulas Included</div>
+  </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Grandma's Garden Tote Thumbnail</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{width:2000px;height:2000px;overflow:hidden;}
+.canvas{
+  width:2000px;height:2000px;position:relative;
+  background:linear-gradient(135deg,#faf4ec 0%,#f4f0e8 100%);
+  display:flex;align-items:center;justify-content:center;
+  gap:80px;overflow:hidden;
+}
+.bg-tex{position:absolute;inset:0;background-image:radial-gradient(circle at 1px 1px, rgba(160,120,60,.08) 1px, transparent 0);background-size:32px 32px;}
+.orb{position:absolute;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(200,170,120,.2),transparent 70%);bottom:-200px;left:-200px;}
+
+.left{flex:1;display:flex;align-items:center;justify-content:center;}
+.right{flex:1;display:flex;flex-direction:column;justify-content:center;gap:28px;padding:80px 120px 80px 40px;}
+
+.eyebrow{font-family:'DM Sans',sans-serif;font-weight:700;font-size:22px;color:#8b7040;text-transform:uppercase;letter-spacing:6px;}
+.title{font-family:'Playfair Display',serif;font-size:110px;font-weight:700;line-height:.9;color:#2d2010;}
+.title .italic{font-style:italic;color:#a08040;}
+.sub{font-family:'DM Sans',sans-serif;font-size:28px;color:#6b5530;line-height:1.5;}
+.tagline{font-family:'Playfair Display',serif;font-style:italic;font-size:36px;color:rgba(107,85,48,.6);}
+.pills{display:flex;gap:12px;flex-wrap:wrap;}
+.pill{padding:10px 24px;border-radius:6px;font-size:18px;font-weight:700;border:2px solid;}
+.p1{background:#fdf5e0;border-color:#c9a050;color:#7a5820;}
+.p2{background:#f0f5ee;border-color:#80a860;color:#305820;}
+.p3{background:#fdf5e0;border-color:#c9a050;color:#7a5820;}
+
+/* Tote SVG */
+.tote-wrap{position:relative;}
+.tote-shadow{position:absolute;bottom:-20px;left:50%;transform:translateX(-50%);width:400px;height:30px;background:rgba(0,0,0,.1);border-radius:50%;filter:blur(18px);}
+</style>
+</head>
+<body>
+<div class="canvas">
+  <div class="bg-tex"></div><div class="orb"></div>
+  <div class="left">
+    <div class="tote-wrap">
+      <div class="tote-shadow"></div>
+      <svg viewBox="0 0 280 320" width="620" height="710" fill="none">
+        <!-- Tote handles -->
+        <path d="M95,50 Q90,15 110,12 Q130,9 135,50" stroke="#c9a050" stroke-width="10" fill="none" stroke-linecap="round"/>
+        <path d="M145,50 Q150,15 170,12 Q190,9 185,50" stroke="#c9a050" stroke-width="10" fill="none" stroke-linecap="round"/>
+        <!-- Tote body -->
+        <path d="M30,60 Q28,55 35,52 L245,52 Q252,55 250,60 L258,280 Q256,300 235,302 L45,302 Q24,300 22,280 Z" fill="#f5f0e0" stroke="#c9a050" stroke-width="2"/>
+        <!-- Tote panel seam -->
+        <line x1="140" y1="55" x2="140" y2="300" stroke="#d8c890" stroke-width="1" stroke-dasharray="4,4"/>
+
+        <!-- Garden design on tote -->
+        <!-- Watering can -->
+        <ellipse cx="88" cy="175" rx="28" ry="22" fill="#c9a050" opacity=".8"/>
+        <path d="M60,168 L40,168 Q35,168 35,175 Q35,182 40,182 L60,175" fill="#c9a050" opacity=".8"/>
+        <path d="M88,153 L95,138 Q97,134 100,140 L95,158" fill="#c9a050" opacity=".7"/>
+        <path d="M100,140 L104,136 M100,140 L108,140 M100,140 L104,144" stroke="#a07830" stroke-width="1.5"/>
+        <rect x="70" y="194" width="38" height="5" rx="2" fill="#a07830" opacity=".7"/>
+
+        <!-- Flowers -->
+        <path d="M140,200 L140,120" stroke="#70a050" stroke-width="3"/>
+        <path d="M140,160 Q120,145 115,125 Q130,145 140,158" fill="#90c070" stroke="#70a050" stroke-width="1.5"/>
+        <path d="M140,145 Q160,130 165,110 Q150,130 140,143" fill="#90c070" stroke="#70a050" stroke-width="1.5"/>
+        <!-- Sunflower head -->
+        <circle cx="140" cy="115" r="18" fill="#e8c840"/>
+        <circle cx="140" cy="115" r="10" fill="#6b3a00"/>
+        <!-- Petals -->
+        <ellipse cx="140" cy="93" rx="8" ry="14" fill="#f0d840" opacity=".9"/>
+        <ellipse cx="140" cy="93" rx="8" ry="14" fill="#f0d840" opacity=".8" transform="rotate(30,140,115)"/>
+        <ellipse cx="140" cy="93" rx="8" ry="14" fill="#f0d840" opacity=".85" transform="rotate(60,140,115)"/>
+        <ellipse cx="140" cy="93" rx="8" ry="14" fill="#f0d840" opacity=".8" transform="rotate(90,140,115)"/>
+        <ellipse cx="140" cy="93" rx="8" ry="14" fill="#f0d840" opacity=".85" transform="rotate(120,140,115)"/>
+        <ellipse cx="140" cy="93" rx="8" ry="14" fill="#f0d840" opacity=".8" transform="rotate(150,140,115)"/>
+        <ellipse cx="140" cy="93" rx="8" ry="14" fill="#f0d840" opacity=".9" transform="rotate(180,140,115)"/>
+        <ellipse cx="140" cy="93" rx="8" ry="14" fill="#f0d840" opacity=".8" transform="rotate(210,140,115)"/>
+        <ellipse cx="140" cy="93" rx="8" ry="14" fill="#f0d840" opacity=".85" transform="rotate(240,140,115)"/>
+        <ellipse cx="140" cy="93" rx="8" ry="14" fill="#f0d840" opacity=".8" transform="rotate(270,140,115)"/>
+        <ellipse cx="140" cy="93" rx="8" ry="14" fill="#f0d840" opacity=".85" transform="rotate(300,140,115)"/>
+        <ellipse cx="140" cy="93" rx="8" ry="14" fill="#f0d840" opacity=".8" transform="rotate(330,140,115)"/>
+
+        <!-- Right side flowers -->
+        <path d="M200,200 L200,140" stroke="#70a050" stroke-width="2.5"/>
+        <circle cx="200" cy="134" r="14" fill="#ffb0d0" stroke="#e090b0" stroke-width="1.5"/>
+        <circle cx="200" cy="134" r="6" fill="#e8c870"/>
+        <path d="M195,145 Q182,135 178,118 Q191,132 195,143" fill="#90c070" stroke="#70a050" stroke-width="1.5"/>
+
+        <!-- Script text -->
+        <text x="140" y="260" font-family="Georgia,serif" font-style="italic" font-size="18" fill="#8b6830" text-anchor="middle">Grandma's Garden</text>
+      </svg>
+    </div>
+  </div>
+  <div class="right">
+    <div class="eyebrow">Garden Tote Bag</div>
+    <div class="title">Grandma's<br><span class="italic">Garden</span></div>
+    <div class="tagline">"Where flowers bloom,<br>so does joy."</div>
+    <div class="sub">Perfect gift for gardeners,<br>grandmothers & nature lovers</div>
+    <div class="pills">
+      <div class="pill p1">Gift for Grandma</div>
+      <div class="pill p2">Gardening Lover</div>
+      <div class="pill p3">Canvas Tote Bag</div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
